@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Datenerhebung</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list lines="none">
+    <ion-item *ngIf = "user?.isTherapeut()" detail="true" (click)="openItem('/surveyCreator')">
+      <ion-icon slot="start" name='add-circle-outline'></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>Neuen Fragebogen erstellen</h2>
+      </ion-label>
+    </ion-item>
+    <ion-item detail="true" (click)="openItem('/survey')">
+      <ion-icon slot="start" name='documents-outline'></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>Zu den Fragebögen</h2>
+        <p>{{ user?.isTherapeut() ? 'bestehenden Fragebogen als Vorlage nutzen, Fragebogen zuweisen oder löschen' : 'offene Fragebögen bearbeiten'}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf = "user?.isTherapeut()" detail="true" (click)="openItem('/survey-old')">
+      <ion-icon slot="start" name='document-lock-outline'></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>abgeschlossene Fragebögen einsehen</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

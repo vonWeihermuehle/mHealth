@@ -1,0 +1,53 @@
+version: '3.3'
+ 
+services:
+    mHealth_database:
+        image: mysql
+        container_name: database
+        environment:
+            MYSQL_ROOT_PASSWORD: mHealth
+            MYSQL_DATABASE: mHealth
+            MYSQL_USER: mHealth
+            MYSQL_PASSWORD: mHealth
+            TZ: Europe/Berlin
+        ports:
+            - 3306:3306
+        volumes:
+            - ${SRCROOT:-.}/db/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+            - dockerAngularSpringDatabaseData:/var/lib/mysql
+        networks:
+            - backendNetwork
+      
+    mHealth_backend:
+        image: openjdk:11
+        container_name: backend
+        ports:
+          - 8083:8083
+        depends_on:
+          - mHealth_database
+        volumes:
+          - ${SRCROOT:-.}/backend/libs/:/app/libs/
+          - ${SRCROOT:-.}/backend/backend.jar:/app/backend.jar
+        working_dir: /app
+        command: ["java", "-jar", "backend.jar", "jdbc:mysql://mHealth_database:3306/mHealth?serverTimezone=Europe/Berlin"]
+        networks:
+            - backendNetwork
+
+    mHealth_frontend:
+        image: nginx:alpine
+        container_name: frontend
+        ports: 
+        - 80:80
+        depends_on:
+        - mHealth_backend
+        volumes:
+        - ${SRCROOT:-.}/nginx.conf:/etc/nginx/nginx.conf
+        - ${SRCROOT:-.}/frontend:/usr/share/nginx/html    
+
+     
+ 
+volumes:
+    dockerAngularSpringDatabaseData:
+   
+networks:
+    backendNetwork:

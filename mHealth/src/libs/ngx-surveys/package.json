@@ -1,0 +1,37 @@
+{
+  "name": "ngx-surveys",
+  "version": "0.6.0",
+  "description": "Angular 8+ survey / form builder",
+  "bugs": "https://github.com/vlasovilya/ngx-surveys/issues",
+  "homepage": "https://github.com/vlasovilya/ngx-surveys#readme",
+  "repository": "https://github.com/vlasovilya/ngx-surveys.git",
+  "license": "MIT",
+  "author": "vlasovilya",
+  "keywords": [
+    "angular 2",
+    "angular 4",
+    "angular 5",
+    "angular 6",
+    "angular 7",
+    "ngx",
+    "ng2",
+    "angular",
+    "form",
+    "survey",
+    "form-builder",
+    "surveys"
+  ],
+  "peerDependencies": {
+    "@angular/core": "^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0",
+    "@angular/common": "^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0",
+    "@angular/forms": "^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0",
+    "@angular/material": "^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0",
+    "@angular/material-moment-adapter": "^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0",
+    "ngx-mask": "^11.1.5",
+    "angular-resize-event": "^2.1.0"
+  }
+
+}

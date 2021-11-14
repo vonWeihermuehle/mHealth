@@ -1,0 +1,98 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Kontakt hinzufügen</h4>
+    <button type="button" class="close" aria-label="Abbrechen" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" style="overflow-y: scroll;">
+
+      <div class="row">
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" [(ngModel)]="aktuellerKontakt.name"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">E-Mail</label>
+          <input type="email" class="form-control" [(ngModel)]="aktuellerKontakt.email"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Telefon</label>
+          <input type="phone" class="form-control" [(ngModel)]="aktuellerKontakt.phone"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Art</label>
+          <select class="form-select" aria-label="Default select example" [(ngModel)]="aktuellerKontakt.art">
+            <option selected>{{aktuellerKontakt.art}}</option>
+            <option value="Bezugsperson">Bezugsperson</option>
+            <option value="Beratungsstelle">Beratungsstelle</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <button type="button" class="btn btn-primary" (click)="abschliesen()">Bestätigen</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Kontakt aufbauen</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list lines="none">
+    <ion-item detail="true" (click)="openFuerNeuenEintrag(content)">
+      <ion-icon slot="start" name='person-add-outline'></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>Kontakt hinzufügen</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item-divider></ion-item-divider>
+
+  <ion-list lines="none">
+    <ion-list-header size="large">
+      Gespeicherte Kontakte
+    </ion-list-header>
+    <ion-item *ngFor="let k of kontakte" detail="true">
+      <ion-icon slot="start" name="{{getIconName(k.art)}}"></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>{{ k.name }}</h2>
+        <p>{{ k.art }}</p>
+        <p>
+          <a href="tel:{{k.phone}}" *ngIf="!isArtTherapeut(k.art)">
+            <ion-button size="medium">
+              <ion-icon slot="start" name="call-outline"></ion-icon>
+              Anrufen
+            </ion-button>
+          </a>
+          <ion-button *ngIf="isArtTherapeut(k.art)" size="medium" (click)="gotoChat(k.userID, k.name)">
+            <ion-icon slot="start" name="chatbubbles-outline"></ion-icon>
+            Zum Chat
+          </ion-button>
+          <a href="mailto:{{k.email}}">
+            <ion-button *ngIf="isValidEmail(k.email)" size="medium">
+              <ion-icon slot="start" name="mail-outline"></ion-icon>
+              E-Mail senden
+            </ion-button>
+          </a>
+          <ion-button *ngIf="!isArtTherapeut(k.art)" size="medium" (click)="openFuerBearbeitung(content, k.id)">
+            <ion-icon name="settings-outline"></ion-icon>
+          </ion-button>
+        </p>
+      </ion-label>
+      <ion-icon slot="end" name='trash-outline' size="large" *ngIf="!isArtTherapeut(k.art)" (click)="delete(k.id)"></ion-icon>
+
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,126 @@
+<ng-template #zuweisenModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="zuweisen-modal">Zuweisen</h4>
+    <button type="button" class="close" aria-label="Abbrechen" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" style="overflow-y: scroll;">
+      <ion-list lines="none">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              {{tmpPatient.nachname + ' ' + tmpPatient.vorname}}
+            </ion-card-title>
+            <ion-card-subtitle>
+              {{tmpPatient.username}}
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <ion-label>wöchentlich?</ion-label>
+              <ion-toggle slot="start" name="test" (click)="toogle(tmpPatient)"></ion-toggle>
+            </ion-item>
+          </ion-card-content>
+          <ion-card-content *ngIf="tmpPatient.toggle">
+            <div class="mb-3">
+              <label class="form-label">In welchem Wochenturnus soll der Patient den Fragebogen zugeschickt bekommen?</label>
+              <input type="number" class="form-control" [(ngModel)]="tmpCron"/>
+            </div>
+          </ion-card-content>
+          <ion-card-content>
+            <div class="row">
+              <button type="button" class="btn btn-primary" (click)="zuweisen()">Bestätigen</button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-list>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="delete-modal">Zuweisung aufheben</h4>
+    <button type="button" class="close" aria-label="Abbrechen" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" style="overflow-y: scroll;">
+      <ion-list lines="none">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              {{tmpPatient.nachname + ' ' + tmpPatient.vorname}}
+            </ion-card-title>
+            <ion-card-subtitle>
+              {{tmpPatient.username}}
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="row">
+              <button type="button" class="btn btn-primary" (click)="delete()">Löschen</button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-list>
+    </div>
+  </div>
+</ng-template>
+
+
+
+
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Zuweisen</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+
+      <ion-col>
+        <ion-list lines="none">
+          <ion-list-header>
+            <ion-label size="large">Patienten, denen der Fragebogen noch nicht zugewiesen wurde</ion-label>
+          </ion-list-header>
+          <div *ngFor="let p of patientenList">
+          <ion-item *ngIf="!isInZuweisung(p.username)" detail="true" (click)="openZuweisungModal(zuweisenModal, p.uuid)">
+            <ion-label class="ion-text-wrap">
+              <h2>{{ p.nachname + ' ' + p.vorname}}</h2>
+              <p>{{ p.username }}</p>
+            </ion-label>
+          </ion-item>
+          </div>
+        </ion-list>
+      </ion-col>
+
+      <ion-col>
+        <ion-list lines="none">
+          <ion-list-header>
+            <ion-label size="large">bereits Zugewiesen</ion-label>
+          </ion-list-header>
+          <ion-item *ngFor="let z of zuweisungList" detail="true" (click)="openDelete(deleteModal, z.empfaenger.uuid, z.id)">
+            <ion-label class="ion-text-wrap">
+              <h2>{{ z.empfaenger.nachname + ' ' + z.empfaenger.vorname}}</h2>
+              <p>{{ z.empfaenger.username }}</p>
+              <p>{{getTurnusText(z.cron)}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

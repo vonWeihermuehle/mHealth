@@ -1,0 +1,63 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="isUebersicht()">Chat</ion-title>
+    <ion-title *ngIf="!isUebersicht()">{{titel}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="isUebersicht()">
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label size="large">Chats</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let p of chatPartner" detail="true" (click)="openChat(p.uuid, p.name)">
+      <ion-label class="ion-text-wrap">
+        <h2>{{ p.name }}</h2>
+        <p>{{ p.username }}</p>
+        <p>{{ p.ungeleseneNachrichten ? 'es gibt ungelesene Nachrichten' : 'keine neuen Nachrichten' }}</p>
+      </ion-label>
+      <ion-icon slot="end" name='trash-outline' size="large" ></ion-icon>
+
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-content #content *ngIf="!isUebersicht()">
+
+    <div class="inbox_msg">
+
+      <div class="mesgs">
+        <div class="msg_history">
+
+          <div *ngFor="let n of nachrichten" class="{{isReceived(n) ? 'incoming_msg' : 'outgoing_msg'}}">
+            <div class="{{isReceived(n) ? 'received_msg' : 'sent_msg'}}">
+              <div class="{{isReceived(n) ? 'received_withd_msg' : ''}}">
+                <p>{{n.nachricht}}</p>
+                <span class="time_date"> {{ formatDate(n.erstellt)}}</span>
+             </div>
+          </div>
+        </div>
+
+        </div>
+      </div>
+
+    </div>
+
+</ion-content>
+
+<ion-footer *ngIf="!isUebersicht()">
+
+  <ion-toolbar>
+      <ion-textarea class="ion-padding" [(ngModel)]="note" [autoGrow]="!!note" placeholder="Hier tippen..." maxlength="400"></ion-textarea>
+    <ion-buttons slot="end" class="ion-padding">
+      <ion-button (click)="sendMessage()">
+        <ion-icon slot="end" name='paper-plane-outline' size="large" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-footer>
+

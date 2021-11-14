@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Datenerhebung</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+
+  <div class="row">
+    <div class="mb-3">
+      <label class="form-label">Titel</label>
+      <input type="text" class="form-control" [(ngModel)]="tmpTitel"/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Beschreibung</label>
+      <input type="text" class="form-control" [(ngModel)]="tmpBeschreibung"/>
+    </div>
+  </div>
+
+  <mat-tab-group mat-align-tabs="center" backgroundColor="primary" >
+    <mat-tab [aria-label]="'custom'" class="tab" label="Erstelle Fragebogen">
+      <ngx-survey-form-builder
+        [form]="form"
+        (changes)="onChange($event)">
+      </ngx-survey-form-builder>
+    </mat-tab>
+    <mat-tab label="Vorschau">
+      <ngx-survey #survey
+                  [form]="form"
+                  [(value)]="model"
+                  (submit)="onFormSubmit($event)">
+      </ngx-survey>
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="12" class="ion-text-center">
+            <ion-button size="medium" (click)="survey.submitForm()">
+              <ion-icon slot="start" name="save-outline"></ion-icon>
+              Speichern
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </mat-tab>
+  </mat-tab-group>
+
+</ion-content>

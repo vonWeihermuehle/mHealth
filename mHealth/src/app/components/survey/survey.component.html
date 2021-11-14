@@ -1,0 +1,109 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="auswahl-modal">Auswahl</h4>
+    <button type="button" class="close" aria-label="Abbrechen" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" style="overflow-y: scroll;">
+      <div class="row">
+        <div class="mb-3">
+          <p>den ausgewählten Fragebogen als Vorlage für neuen Fragebogen nutzen</p>
+          <button type="button" class="btn btn-primary" (click)="erstelleNeuAusVorlage()">Erstellen</button>
+        </div>
+        <ion-item-divider></ion-item-divider>
+        <div class="mb-3" style="padding-top: 10px">
+          <p>zeige Fragebogen-Vorschau</p>
+          <button type="button" class="btn btn-primary" (click)="zeigeVorschau(vorschau)">Anzeigen</button>
+        </div>
+        <ion-item-divider></ion-item-divider>
+        <div class="mb-3" style="padding-top: 10px">
+          <p>Fragebogen einem Patienten zuweisen</p>
+          <button type="button" class="btn btn-primary" (click)="openZuweisen()">Zuweisen</button>
+        </div>
+        <ion-item-divider></ion-item-divider>
+        <div class="mb-3" style="padding-top: 10px">
+          <p>Lösche Fragebogen</p>
+          <button type="button" class="btn btn-primary" (click)="delete(tmpID)">Löschen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+
+
+<ng-template #vorschau let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="vorschau-modal">Vorschau</h4>
+    <button type="button" class="close" aria-label="Abbrechen" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" style="overflow-y: scroll;">
+      <ngx-survey #survey
+                  [form]="form"
+                  [(value)]="model"
+                  (submit)="onFormSubmit($event)">
+      </ngx-survey>
+    </div>
+  </div>
+</ng-template>
+
+
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Datenerhebung</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="!isShow()" class="ion-padding">
+  <div class="row">
+    <div class="mb-3">
+      <label class="form-label">Titel</label>
+      <input type="text" class="form-control" [(ngModel)]="aktuellerFragebogen.titel" disabled/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Beschreibung</label>
+      <input type="text" class="form-control" [(ngModel)]="aktuellerFragebogen.beschreibung" disabled/>
+    </div>
+  </div>
+
+  <ngx-survey #survey
+              [form]="form"
+              [(value)]="model"
+              (submit)="onFormSubmit($event)">
+  </ngx-survey>
+
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12" class="ion-text-center">
+        <ion-button size="medium" (click)="survey.submitForm()">
+          Abschließen
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="isShow()">
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label size="large">{{user.isPatient() ? 'offene Fragebögen' : 'gespeicherte Fragebögen'}}</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let f of fragebogenList" detail="false" (click)="open(content, f.id)">
+      <ion-label class="ion-text-wrap">
+        <h2>{{ f.titel }}</h2>
+        <p>{{ f.beschreibung }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,77 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Ort hinzufügen</h4>
+    <button type="button" class="close" aria-label="Abbrechen" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" style="overflow-y: scroll;">
+
+      <div class="row">
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Titel" [(ngModel)]="aktuellerOrt.titel"/>
+        </div>
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Beschreibung" [(ngModel)]="aktuellerOrt.beschreibung"/>
+        </div>
+      </div>
+
+      <agm-map [latitude]="lat" [longitude]="lng" (mapReady)="mapReadyHandler($event)">
+        <agm-marker *ngFor="let m of markers" [latitude]="m.lat" [longitude]="m.lng">
+        </agm-marker>
+      </agm-map>
+
+      <div class="row">
+        <button type="button" class="btn btn-primary" (click)="bestaetigen()">Bestätigen</button>
+      </div>
+
+    </div>
+  </div>
+</ng-template>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Warnfunktion</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list class="ion-padding" lines="none">
+    <ion-item *ngIf="user?.isPatient()">
+      <ion-icon slot="start" name='alert-circle-outline'></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>Aktiv</h2>
+        <p>Solange die Funktion deaktiviert ist, werden keine Standort Informationen abgerufen. Es wird aber auch keine Warnung ausgegeben bei Näherung an einen der aufgeführten Orte.</p>
+      </ion-label>
+      <ion-toggle [ngModel]="isToggled" (ngModelChange)="change()"></ion-toggle>
+    </ion-item>
+    <ion-item detail="true" (click)="openAddModal(content)">
+      <ion-icon slot="start" name='add-circle-outline'></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>Ort hinzufügen</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item-divider></ion-item-divider>
+
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label size="large">Gespeicherte Orte</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let o of orte" detail="true">
+      <ion-icon slot="start" name="map-outline"></ion-icon>
+      <ion-label class="ion-text-wrap" (click)="openUpdateModal(content, o.id)">
+        <h2>{{ o.titel }}</h2>
+        <p>{{ o.beschreibung }}</p>
+      </ion-label>
+      <ion-icon slot="end" name='trash-outline' size="large" (click)="delete(o.id)"></ion-icon>
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+

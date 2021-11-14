@@ -1,0 +1,106 @@
+<div>
+    <mat-label>{{item.label}}</mat-label>
+
+    <!--<mat-slide-toggle *ngIf="allowCustomValues"
+      class="example-margin"
+      [color]="'primary'"
+      [checked]="useCustomValues"
+      [disabled]="!editable"
+      (change)="onUseCustomValuesChange($event)"
+    >
+    Use custom option values
+    </mat-slide-toggle>-->
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+        cdkDropList
+        [cdkDropListData]="dataSource"
+        (cdkDropListDropped)="onListDropped($event)"
+        [cdkDropListDisabled]="!editable"
+    >
+
+        <ng-container matColumnDef="selectedByDefault">
+            <th mat-header-cell *matHeaderCellDef> Ausgewählt </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-checkbox
+                    [checked]="element.selected"
+                    [color]="'primary'"
+                    (change)="setDefaultValue(element, $event.checked)"
+                ></mat-checkbox>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="optionValue">
+            <th mat-header-cell *matHeaderCellDef> Value </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-form-field class="example-full-width">
+                    <input #inputField
+                        matInput
+                        [(ngModel)]="element.optionValue"
+                        [errorStateMatcher]="matcher"
+                        [disabled]="!editable"
+                    >
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="label">
+            <th mat-header-cell *matHeaderCellDef> Label </th>
+            <td mat-cell *matCellDef="let element" class="row-actions">
+                <mat-form-field class="example-full-width">
+                    <input #inputField
+                        matInput
+                        [(ngModel)]="element.label"
+                        (ngModelChange)="onOptionLabelChange($event, element)"
+                        [errorStateMatcher]="matcher"
+                        [disabled]="!editable"
+                    >
+                </mat-form-field>
+
+                <mat-form-field class="explanation-field" *ngIf="element.showExplanation">
+                    <mat-label>Feld - Erklärung</mat-label>
+                    <input #inputField
+                        matInput
+                        [(ngModel)]="element.explanationLabel"
+                        [disabled]="!editable"
+                    >
+                </mat-form-field>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button class="form-item-actions-button" aria-label="Show text field with custom value" *ngIf="allowCustomAnswers && !item.multiple" (click)="toggleExplanationField(element)" type="button"
+                    matTooltip="Zeige Feld -Erklärung"
+                    [disabled]="!editable"
+                >
+                  <mat-icon [color]="element.showExplanation ? 'primary' : 'disabled'">comment</mat-icon>
+                </button>
+
+                <button mat-icon-button class="form-item-actions-button" aria-label="Entferne Auswahl" (click)="removeOption(element)" type="button"
+                    matTooltip="Entferne Auswahl"
+                    [disabled]="!editable"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"
+            cdkDrag
+            [cdkDragData]=row
+        ></tr>
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="3">Bisher keine Auswahlmöglichkeiten</td>
+        </tr>
+    </table>
+    <mat-error *ngIf="item.errors && item.errors.length">
+        <div *ngFor="let error of item.errors">{{error.message}}</div>
+    </mat-error>
+    <mat-hint align="start" *ngIf="!(item.errors && item.errors.length)"><strong>{{item.hint}}</strong> </mat-hint>
+    <button mat-raised-button color="primary" aria-label="Add Option" (click)="addOption()" type="button" matTooltip="Add Option" [disabled]="!editable">
+        Auswahl hinzufügen
+    </button>
+</div>
+
+

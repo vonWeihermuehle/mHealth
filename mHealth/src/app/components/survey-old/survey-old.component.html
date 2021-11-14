@@ -1,0 +1,76 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Patient auswählen</h4>
+    <button type="button" class="close" aria-label="Abbrechen" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ion-list lines="none">
+
+      <ion-item *ngFor="let patient of patienten" detail="true" (click)="selectPatient(patient)">
+        <ion-icon slot="start" name="contract-outline"></ion-icon>
+        <ion-label class="ion-text-wrap">
+          <h2>{{patient.vorname}} {{patient.nachname}}</h2>
+          <p>Benutzername: {{patient.username}}</p>
+        </ion-label>
+      </ion-item>
+
+    </ion-list>
+  </div>
+</ng-template>
+
+<ng-template #showModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-show">Antworten des Fragebogens</h4>
+    <button type="button" class="close" aria-label="Abbrechen" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ion-list lines="none">
+
+      <ion-item *ngFor="let frageAntwort of fragen" detail="false">
+        <ion-label class="ion-text-wrap">
+          <h2>{{frageAntwort.split(':')[0]}}</h2>
+          <p>{{frageAntwort.split(':')[1]}}</p>
+        </ion-label>
+      </ion-item>
+
+    </ion-list>
+  </div>
+</ng-template>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Datenerhebung</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <p class="ion-padding">aktueller
+      Patient: {{aktuellerPatient === null ? '' : aktuellerPatient.vorname + ' ' + aktuellerPatient.nachname}}</p>
+    <ion-buttons slot="end">
+      <ion-button (click)="openPatientenAuswahl(content)">
+        <ion-icon slot="start" name="people-outline"></ion-icon>
+        Patient wählen
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label size="large">abgeschlossene Fragebögen</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let f of abgeschlossene" detail="true" (click)="show(showModal, f.id)">
+      <ion-label class="ion-text-wrap">
+        <h2>{{ f.titel }}</h2>
+        <p>{{ f.beschreibung }}</p>
+        <p>{{ formatDate(f.erstellt)}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

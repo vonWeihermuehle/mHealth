@@ -1,0 +1,171 @@
+<ng-template #content_schwellwert let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-schwellwert">Schwellwerte festlegen</h4>
+    <button type="button" class="close" aria-label="Abbrechen" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row ion-padding" *ngFor="let p of patientenList">
+      <div class="col-sm">
+        <label class="form-label">Username:</label>
+        <input type="text" class="form-control" [(ngModel)]="p.username" disabled/>
+      </div>
+      <div class="col-sm">
+        <label class="form-label">Schwellwert (für Fragebögen)</label>
+        <input type="number" class="form-control" [(ngModel)]="p.schwellwert"/>
+      </div>
+      <div class="row">
+        <div class="col-sm ion-padding-top">
+          <button type="button" class="btn btn-primary" (click)="setSchwellwert(p)">Speichern</button>
+        </div>
+      </div>
+      <ion-item-divider></ion-item-divider>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #content_loeschen let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Alle Daten löschen</h4>
+    <button type="button" class="close" aria-label="Abbrechen" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row">
+        <div class="mb-3">
+          <p>Sind Sie sicher?</p>
+          <p>Es werden alle Nachrichten, Orte, Kontakte, Unterstützungsmaßnahmen und das Benutzerkonto gelöscht!</p>
+        </div>
+        <div class="row">
+          <button type="button" class="btn btn-primary" (click)="datenLoeschen()">Bestätigen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #content_add let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">{{art}} hinzufügen</h4>
+    <button type="button" class="close" aria-label="Abbrechen" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" style="overflow-y: scroll;">
+
+      <div class="row">
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" [(ngModel)]="tmpUser.nachname"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Vorname</label>
+          <input type="text" class="form-control" [(ngModel)]="tmpUser.vorname"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">E-Mail</label>
+          <input type="email" class="form-control" [(ngModel)]="tmpUser.email"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input type="email" class="form-control" [(ngModel)]="tmpUser.username"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Schwellwert (für Fragebögen)</label>
+          <input type="number" class="form-control" [(ngModel)]="tmpUser.schwellwert"/>
+        </div>
+        <div class="row">
+          <button type="button" class="btn btn-primary" (click)="register()">Bestätigen</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #content_change let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title3">Passwort ändern</h4>
+    <button type="button" class="close" aria-label="Abbrechen" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" style="overflow-y: scroll;">
+
+      <div class="row">
+        <div class="mb-3">
+          <label class="form-label">Altes Passwort</label>
+          <input type="text" class="form-control" [(ngModel)]="altesPasswort"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Neues Passwort</label>
+          <input type="text" class="form-control" [(ngModel)]="neuesPasswort"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Neues Passwort bestätigen</label>
+          <input type="text" class="form-control" [(ngModel)]="neuesPasswort2"/>
+        </div>
+        <div class="row">
+          <button type="button" class="btn btn-primary" (click)="changePassword()">Bestätigen</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sonstiges</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list lines="none">
+
+    <ion-item *ngIf="user?.isPatient()" detail="true" (click)="openModal(content_loeschen, '')">
+      <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>Konto löschen</h2>
+        <p>Entferne Konto und alle dazugehörigen Daten</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item detail="true" *ngIf="user?.isTechUser()" (click)="openModal(content_add, 'Therapeut')">
+      <ion-icon slot="start" name="person-add-outline"></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>Therapeut aufnehmen</h2>
+      </ion-label>
+    </ion-item>
+
+    <ion-item detail="true" *ngIf="user?.isTherapeut()" (click)="openModal(content_add, 'Patient')">
+      <ion-icon slot="start" name="person-add-outline"></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>Patient aufnehmen</h2>
+      </ion-label>
+    </ion-item>
+
+    <ion-item detail="true" *ngIf="user?.isTherapeut()" (click)="openModal(content_schwellwert, 'Schwellwert')">
+      <ion-icon slot="start" name="hammer-outline"></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>Patienten Schwellwerte setzen</h2>
+      </ion-label>
+    </ion-item>
+
+    <ion-item detail="true" (click)="openModal(content_change, '')">
+      <ion-icon slot="start" name="keypad-outline"></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>Passwort ändern</h2>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

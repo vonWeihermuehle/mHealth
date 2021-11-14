@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Suche Kontakt</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-icon slot="start" name='alert-circle-outline'></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>Aktiv</h2>
+        <p>Solange die Funktion deaktiviert ist, kann man nicht von Anderen gefunden werden bzw. andere Personen suchen</p>
+      </ion-label>
+      <ion-toggle [ngModel]="isToggled" (ngModelChange)="change()"></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <ion-item-divider></ion-item-divider>
+
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label size="large">{{ isToggled ? 'Kontakte in der Nähe' : ''}}</ion-label>
+    </ion-list-header>
+    <ion-item *ngIf="!isToggled">
+      <ion-label class="ion-text-wrap">
+        Die Suchfunktion ist aktuell deaktiviert.
+      </ion-label>
+    </ion-item>
+    <ion-item *ngFor="let k of kontakte" detail="true">
+      <ion-label class="ion-text-wrap" (click)="startChat(k.uuid, k.name)">
+        <h2>{{ k.username }}</h2>
+        <p>{{ k.name }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+

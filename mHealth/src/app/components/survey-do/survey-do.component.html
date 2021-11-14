@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Datenerhebung</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ngx-survey #survey
+              [form]="form"
+              [(value)]="model"
+              (submit)="onFormSubmit($event)">
+  </ngx-survey>
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12" class="ion-text-center">
+        <ion-button size="medium" (click)="survey.submitForm()">
+          <ion-icon slot="start" name="save-outline"></ion-icon>
+          Abschließen
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
