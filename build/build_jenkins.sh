@@ -1,5 +1,6 @@
 #/bin/bash!
 
+
 WORKDIR="$(dirname "$(readlink -f "$0")")"
 TARGETDIR=$WORKDIR/target
 DOCKERDIR=$WORKDIR/../docker_files
