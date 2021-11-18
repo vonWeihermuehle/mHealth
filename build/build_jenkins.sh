@@ -9,7 +9,7 @@ DOCKERDIR=$WORKDIR/../docker_files
 build_backend(){
     echo -e "${BLUE}build backend${NC}"
     cd ../backend
-    mvn clean install -DskipTests -q
+    mvn clean install -DskipTests
     cd $WORKDIR
 }
 
