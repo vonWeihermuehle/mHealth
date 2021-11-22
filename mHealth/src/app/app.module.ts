@@ -38,6 +38,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {ZuweisenComponent} from './components/zuweisen/zuweisen.component';
 import {SurveyDoComponent} from './components/survey-do/survey-do.component';
 import {SurveyOldComponent} from './components/survey-old/survey-old.component';
+import {DownloadComponent} from './components/download/download.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -55,6 +56,7 @@ import {SurveyOldComponent} from './components/survey-old/survey-old.component';
     SurveyDoComponent,
     SurveyOldComponent,
     ZuweisenComponent,
+    DownloadComponent
   ],
   entryComponents: [],
   imports: [

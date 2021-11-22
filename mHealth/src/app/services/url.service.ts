@@ -1,13 +1,12 @@
 import {Injectable} from '@angular/core';
-import { Platform } from '@ionic/angular';
+import {PlatformService} from './platform.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UrlService {
 
-  constructor(private platform: Platform) {
-  }
+  constructor(private platformService: PlatformService) {}
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   port = '8083';
@@ -15,7 +14,7 @@ export class UrlService {
   getUrl(path: string): string {
     const protocol = window.location.protocol;
     let hostname = window.location.hostname;
-    if(this.isApp()){
+    if(this.platformService.isApp()){
       hostname = '192.168.2.30';
     }
     // eslint-disable-next-line no-console
@@ -23,7 +22,4 @@ export class UrlService {
     return `${protocol}//${hostname}:${this.port}/${path}`;
   }
 
-  isApp(): boolean {
-    return this.platform.is('android') || this.platform.is('ios');
-  }
 }

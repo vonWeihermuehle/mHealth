@@ -14,6 +14,7 @@ import {ChatComponent} from './components/chat/chat.component';
 import {ZuweisenComponent} from './components/zuweisen/zuweisen.component';
 import {SurveyDoComponent} from './components/survey-do/survey-do.component';
 import {SurveyOldComponent} from './components/survey-old/survey-old.component';
+import {DownloadComponent} from './components/download/download.component';
 
 const routes: Routes = [
   //{path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path: 'zuweisen/:id', component: ZuweisenComponent},
   {path: 'survey-old', component: SurveyOldComponent},
   {path: 'chat/:uuid/:name', component: ChatComponent},
+  {path: 'download', component: DownloadComponent}
 
 ];
 

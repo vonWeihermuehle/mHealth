@@ -13,6 +13,7 @@ import {BackgroundMode} from '@ionic-native/background-mode/ngx';
 import {takeWhile} from 'rxjs/operators';
 import {WarnService} from '../services/warn.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
+import {PlatformService} from '../services/platform.service';
 
 @Component({
   selector: 'app-home',
@@ -41,7 +42,8 @@ export class HomeComponent implements OnInit {
     private chatService: ChatService,
     private backgroundMode: BackgroundMode,
     private warnSerivce: WarnService,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private platformService: PlatformService
   ) {
     if (!this.userService.isLoggedIn()) {
       this.router.navigateByUrl('/login');
