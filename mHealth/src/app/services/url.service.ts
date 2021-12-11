@@ -15,7 +15,7 @@ export class UrlService {
     const protocol = window.location.protocol;
     let hostname = window.location.hostname;
     if(this.platformService.isApp()){
-      hostname = '192.168.2.30';
+      //hostname = '192.168.2.30';
     }
     // eslint-disable-next-line no-console
     console.debug(`${protocol}//${hostname}:${this.port}/${path}`);
