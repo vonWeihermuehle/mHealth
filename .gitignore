@@ -7,5 +7,10 @@ package-lock.json
 #backend
 target
 
+#tools
+tools
+cmdline-tools
+licenses
+
 #editor
 .idea
