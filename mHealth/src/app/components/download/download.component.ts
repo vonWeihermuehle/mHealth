@@ -11,4 +11,8 @@ export class DownloadComponent implements OnInit {
 
   ngOnInit() {}
 
+  download(){
+    window.open('/assets/app-debug.apk', '_blank');
+  }
+
 }

@@ -1,3 +1,22 @@
-<p>
-  download works!
-</p>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Download</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list lines="none">
+
+    <ion-item detail="true" (click)="download()">
+      <ion-icon slot="start" name="chevron-down-circle-outline"></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h2>Android</h2>
+        <p>Download der Android App</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
