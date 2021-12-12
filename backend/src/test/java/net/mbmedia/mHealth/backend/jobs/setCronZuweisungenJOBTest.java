@@ -1,6 +1,5 @@
 package net.mbmedia.mHealth.backend.jobs;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import net.mbmedia.mHealth.backend.fragebogen.IFragebogenService;
 import net.mbmedia.mHealth.backend.fragebogen.impl.FragebogenEntity;
 import net.mbmedia.mHealth.backend.fragebogen.impl.FragebogenZuweisungEntity;

@@ -1,7 +1,5 @@
 package net.mbmedia.mHealth.backend;
 
-
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import net.mbmedia.mHealth.backend.chat.IChatService;
 import net.mbmedia.mHealth.backend.chat.impl.MessageEntity;
 import net.mbmedia.mHealth.backend.fragebogen.IFragebogenService;
@@ -23,6 +21,7 @@ import net.mbmedia.mHealth.backend.user.impl.UserEntity;
 import net.mbmedia.mHealth.backend.util.UUIDHelper;
 import net.mbmedia.mHealth.backend.util.ValueProvider;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -45,8 +44,7 @@ import static net.mbmedia.mHealth.backend.util.CryptoHelper.hash;
 import static net.mbmedia.mHealth.backend.util.ValueProvider.mitZufallswerten;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class TestDatenEinspieler
-{
+public class TestDatenEinspieler {
     private static final String THERAPEUT_UUID = UUIDHelper.generateUUID();
     private static final String Patient_UUID = UUIDHelper.generateUUID();
     private static final String THERAPEUT_USERNAME = "T";
@@ -79,15 +77,13 @@ public class TestDatenEinspieler
     private IFragebogenService fragebogenService;
 
     @BeforeEach
-    public void leereTabellen()
-    {
+    public void leereTabellen() {
         truncateAllTables(userService, therapeutPatientService, unterstuetzungService, kontakteService, orteService, chatService, parameterService, fragebogenService);
     }
 
-    @Ignore
+    @Disabled
     @Test
-    public void spiele_Testdaten_ein()
-    {
+    public void spiele_Testdaten_ein() {
         spieleUserEin();
         spieleUnterstuetzungEin();
         spieleKontakteEin();
@@ -97,8 +93,7 @@ public class TestDatenEinspieler
         spieleFrageboegenEin();
     }
 
-    private void spieleUserEin()
-    {
+    private void spieleUserEin() {
         UserEntity Therapeut = getStandardUserEntityBuilder()
                 .withEmail(zufall.emailAddress())
                 .withTherapeut(true)
@@ -150,8 +145,7 @@ public class TestDatenEinspieler
         persistiere(e, e2);
     }
 
-    private void spieleUnterstuetzungEin()
-    {
+    private void spieleUnterstuetzungEin() {
         UnterstuetzungEntity e = standardUnterstuetzungBuilder()
                 .withAuthor(THERAPEUT_UUID)
                 .withEmpfaenger(Patient_UUID)
@@ -160,24 +154,21 @@ public class TestDatenEinspieler
         unterstuetzungService.add(e);
     }
 
-    private void spieleKontakteEin()
-    {
+    private void spieleKontakteEin() {
         KontaktEntity entity = getStandardKontakteBuilder()
                 .withUserID(Patient_UUID)
                 .build();
         kontakteService.addKontakt(entity);
     }
 
-    private void spieleOrteEin()
-    {
+    private void spieleOrteEin() {
         OrtEntity ortEntity = OrtEntityTestDatenErzeuger.standardOrtBuilder()
                 .withPatient(Patient_UUID)
                 .build();
         orteService.add(ortEntity);
     }
 
-    private void spieleChatEin()
-    {
+    private void spieleChatEin() {
         MessageEntity anPatient = getStandardMessageBuilder()
                 .withAuthorID(THERAPEUT_UUID)
                 .withEmpfaengerID(Patient_UUID)
@@ -193,8 +184,7 @@ public class TestDatenEinspieler
         persistiere(anPatient, anTherapeut);
     }
 
-    private void spieleFrageboegenEin()
-    {
+    private void spieleFrageboegenEin() {
         Optional<UserEntity> patient = userService.getById(Patient_UUID);
         FragebogenEntity fragebogen = getStandardFragebogenEntityBuilder().withAuthor(THERAPEUT_UUID).build();
 
@@ -215,23 +205,19 @@ public class TestDatenEinspieler
         fragebogenService.addAbgeschlossen(abgeschlossen);
     }
 
-    private void spieleParameterEin()
-    {
+    private void spieleParameterEin() {
         generateMailParameter().forEach(p -> parameterService.persist(p));
     }
 
-    private void persistiere(TherapeutPatientEntity... entities)
-    {
+    private void persistiere(TherapeutPatientEntity... entities) {
         Arrays.stream(entities).forEach(t -> therapeutPatientService.add(t));
     }
 
-    private void persistiere(UserEntity... user)
-    {
+    private void persistiere(UserEntity... user) {
         Arrays.stream(user).forEach(u -> userService.register(u));
     }
 
-    private void persistiere(MessageEntity... messages)
-    {
+    private void persistiere(MessageEntity... messages) {
         Arrays.stream(messages).forEach(m -> chatService.add(m));
     }
 }

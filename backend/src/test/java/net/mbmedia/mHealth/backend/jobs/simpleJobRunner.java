@@ -1,6 +1,6 @@
 package net.mbmedia.mHealth.backend.jobs;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,14 +15,14 @@ public class simpleJobRunner
     private removeExpiredTokensJOB removeExpiredTokensJOB;
 
     @Test
-    @Ignore
+    @Disabled
     public void runZuweisungenJob()
     {
         cronZuweisungenJOB.run();
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void runTokenJob()
     {
         removeExpiredTokensJOB.run();
