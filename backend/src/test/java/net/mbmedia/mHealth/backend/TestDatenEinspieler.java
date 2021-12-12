@@ -23,6 +23,9 @@ import net.mbmedia.mHealth.backend.util.ValueProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIf;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -81,7 +84,6 @@ public class TestDatenEinspieler {
         truncateAllTables(userService, therapeutPatientService, unterstuetzungService, kontakteService, orteService, chatService, parameterService, fragebogenService);
     }
 
-    @Disabled
     @Test
     public void spiele_Testdaten_ein() {
         spieleUserEin();
