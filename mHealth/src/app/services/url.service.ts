@@ -6,7 +6,8 @@ import {PlatformService} from './platform.service';
 })
 export class UrlService {
 
-  constructor(private platformService: PlatformService) {}
+  constructor(private platformService: PlatformService) {
+  }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   port = '8083';
@@ -14,8 +15,8 @@ export class UrlService {
   getUrl(path: string): string {
     const protocol = window.location.protocol;
     let hostname = window.location.hostname;
-    if(this.platformService.isApp()){
-      //hostname = '192.168.2.30';
+    if (this.platformService.isApp()) {
+      hostname = 'mHealt.mb-media.net';
     }
     // eslint-disable-next-line no-console
     console.debug(`${protocol}//${hostname}:${this.port}/${path}`);
