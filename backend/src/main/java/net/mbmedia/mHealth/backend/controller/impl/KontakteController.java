@@ -16,7 +16,7 @@ import java.util.Optional;
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.NO_PERMISSION;
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.failureAnswer;
 import static net.mbmedia.mHealth.backend.util.RejectUtils.rejectIf;
-import static net.mbmedia.mHealth.backend.util.ResponseHelper.simpleSuccesAnswer;
+import static net.mbmedia.mHealth.backend.util.ResponseHelper.simpleSuccessAnswer;
 import static net.mbmedia.mHealth.backend.util.ResponseHelper.successAnswerWithObject;
 
 @RestController
@@ -46,7 +46,7 @@ public class KontakteController extends BaseController implements IKontakteContr
 
         if (id.isPresent())
         {
-            return simpleSuccesAnswer();
+            return simpleSuccessAnswer();
         } else
         {
             return failureAnswer(FailureAnswer.SOME);
@@ -64,7 +64,7 @@ public class KontakteController extends BaseController implements IKontakteContr
         if (kontakt.isPresent())
         {
             kontakteService.delKontakt(id);
-            return simpleSuccesAnswer();
+            return simpleSuccessAnswer();
         }
 
         return failureAnswer(NO_PERMISSION);
@@ -89,7 +89,7 @@ public class KontakteController extends BaseController implements IKontakteContr
         if (oldKontakt.isPresent())
         {
             kontakteService.updateKontakt(entity);
-            return simpleSuccesAnswer();
+            return simpleSuccessAnswer();
         }
         return failureAnswer(NO_PERMISSION);
     }

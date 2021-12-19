@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.*;
 import static net.mbmedia.mHealth.backend.util.RejectUtils.rejectIf;
-import static net.mbmedia.mHealth.backend.util.ResponseHelper.simpleSuccesAnswer;
+import static net.mbmedia.mHealth.backend.util.ResponseHelper.simpleSuccessAnswer;
 import static net.mbmedia.mHealth.backend.util.ResponseHelper.successAnswerWithObject;
 
 @RestController
@@ -26,6 +26,7 @@ public class UnterstuetzungController extends BaseController implements IUnterst
     @Autowired
     private IUnterstuetzungService unterstuetzungService;
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @PostMapping("/addUebung")
     @Override
     public String addUebung(String token, String titel, String text, String empfaenger)
@@ -44,7 +45,7 @@ public class UnterstuetzungController extends BaseController implements IUnterst
 
         if (id.isPresent())
         {
-            return simpleSuccesAnswer();
+            return simpleSuccessAnswer();
         }
 
         return failureAnswer(SOME);
@@ -65,7 +66,7 @@ public class UnterstuetzungController extends BaseController implements IUnterst
 
         unterstuetzungService.update(uebungID, titel, text);
 
-        return simpleSuccesAnswer();
+        return simpleSuccessAnswer();
     }
 
     @GetMapping("/getUebungen")
@@ -112,7 +113,7 @@ public class UnterstuetzungController extends BaseController implements IUnterst
 
         unterstuetzungService.removeByID(uebungID);
 
-        return simpleSuccesAnswer();
+        return simpleSuccessAnswer();
     }
 
 }

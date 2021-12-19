@@ -15,7 +15,7 @@ import java.util.Optional;
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.SOME;
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.failureAnswer;
 import static net.mbmedia.mHealth.backend.util.RejectUtils.rejectIf;
-import static net.mbmedia.mHealth.backend.util.ResponseHelper.simpleSuccesAnswer;
+import static net.mbmedia.mHealth.backend.util.ResponseHelper.simpleSuccessAnswer;
 import static net.mbmedia.mHealth.backend.util.ResponseHelper.successAnswerWithObject;
 
 @RestController
@@ -45,7 +45,7 @@ public class OrteController extends BaseController implements IOrteController
 
         if (ortId.isPresent())
         {
-            return simpleSuccesAnswer();
+            return simpleSuccessAnswer();
         }
         return failureAnswer(SOME);
     }
@@ -67,7 +67,7 @@ public class OrteController extends BaseController implements IOrteController
 
         orteService.update(ort);
 
-        return simpleSuccesAnswer();
+        return simpleSuccessAnswer();
     }
 
     @PostMapping("/get")
@@ -91,6 +91,6 @@ public class OrteController extends BaseController implements IOrteController
         rejectIf(!isTokenValid(token) || !userID.isPresent());
 
         orteService.removeByID(ortID);
-        return simpleSuccesAnswer();
+        return simpleSuccessAnswer();
     }
 }

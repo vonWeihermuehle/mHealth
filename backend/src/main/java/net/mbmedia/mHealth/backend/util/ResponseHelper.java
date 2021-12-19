@@ -64,14 +64,7 @@ public class ResponseHelper
 
     }
 
-    public static String Success()
-    {
-        return new ResponseHelper.BUILDER()
-                .withSuccess(true)
-                .build();
-    }
-
-    public static String simpleSuccesAnswer()
+    public static String simpleSuccessAnswer()
     {
         return new ResponseHelper.BUILDER()
                 .withSuccess(true)

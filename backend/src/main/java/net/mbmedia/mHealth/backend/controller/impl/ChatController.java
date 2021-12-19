@@ -48,7 +48,7 @@ public class ChatController extends BaseController implements IChatController
         Optional<Long> id = chatService.add(message);
         if (id.isPresent())
         {
-            return simpleSuccesAnswer();
+            return simpleSuccessAnswer();
         }
 
         return failureAnswer(SOME);
@@ -87,7 +87,7 @@ public class ChatController extends BaseController implements IChatController
         rejectIf(!isTokenValid(token) || !userID.isPresent());
 
         chatService.markAsRead(userID.get(), authorID);
-        return simpleSuccesAnswer();
+        return simpleSuccessAnswer();
     }
 
     @PostMapping("/check")

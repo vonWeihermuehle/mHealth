@@ -68,6 +68,7 @@ public class UserController extends BaseController implements IUserController
         return failureAnswer(LOGIN_FAILED);
     }
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Override
     public String resetPassword(String host, String email)
     {
@@ -80,7 +81,7 @@ public class UserController extends BaseController implements IUserController
         if (erfolg)
         {
             mailService.sendNewPasswort(host, byEmail.get(), newPasswort);
-            return simpleSuccesAnswer();
+            return simpleSuccessAnswer();
         }
         return failureAnswer(SOME);
     }
@@ -139,7 +140,7 @@ public class UserController extends BaseController implements IUserController
         if (list.contains(username))
         {
             mailService.sendRegisterConfirmation(host, patient, initialPassword);
-            return simpleSuccesAnswer();
+            return simpleSuccessAnswer();
         }
         return failureAnswer(FailureAnswer.REGISTER_FAILED);
     }
@@ -172,7 +173,7 @@ public class UserController extends BaseController implements IUserController
         if (register.isPresent())
         {
             mailService.sendRegisterConfirmation(host, therapeut, initialPassword);
-            return simpleSuccesAnswer();
+            return simpleSuccessAnswer();
         }
 
         return failureAnswer(FailureAnswer.REGISTER_FAILED);
@@ -193,6 +194,7 @@ public class UserController extends BaseController implements IUserController
         return successAnswerWithObject(list);
     }
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @GetMapping("/showPatientenNearby")
     @Override
     public String showPatientenNearby(String token)
@@ -226,9 +228,10 @@ public class UserController extends BaseController implements IUserController
         }
 
         userService.setLastCoordinates(userID.get(), lat, lng);
-        return simpleSuccesAnswer();
+        return simpleSuccessAnswer();
     }
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @PostMapping("/setSchwellwert")
     @Override
     public String setSchwellwert(String token, String userID, Integer wert)
@@ -240,7 +243,7 @@ public class UserController extends BaseController implements IUserController
         rejectIfNot(byId.isPresent());
 
         userService.setSchwellwert(byId.get().getUuid(), wert);
-        return simpleSuccesAnswer();
+        return simpleSuccessAnswer();
     }
 
     @PostMapping("/removeOwnUserWithAllData")
@@ -257,9 +260,10 @@ public class UserController extends BaseController implements IUserController
         therapeutPatientService.deleteForPatient(userID.get());
         unterstuetzungService.deleteForPatient(userID.get());
 
-        return simpleSuccesAnswer();
+        return simpleSuccessAnswer();
     }
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @PostMapping("/changePassword")
     @Override
     public String changePassword(String token, String altesPasswort, String neuesPasswort)
@@ -268,6 +272,7 @@ public class UserController extends BaseController implements IUserController
         rejectIf(!isTokenValid(token) || !userID.isPresent());
 
         Optional<UserEntity> user = userService.getById(userID.get());
+        rejectIfNot(user.isPresent());
         if (!user.get().getPasswort().equals(hash(altesPasswort)))
         {
             return failureAnswer(SOME);
@@ -275,7 +280,7 @@ public class UserController extends BaseController implements IUserController
 
         if (userService.updatePassword(userID.get(), hash(neuesPasswort)))
         {
-            return simpleSuccesAnswer();
+            return simpleSuccessAnswer();
         } else
         {
             return failureAnswer(SOME);

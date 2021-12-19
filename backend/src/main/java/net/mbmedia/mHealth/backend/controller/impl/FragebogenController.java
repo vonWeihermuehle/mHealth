@@ -27,7 +27,7 @@ import static java.time.LocalDate.now;
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.SOME;
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.failureAnswer;
 import static net.mbmedia.mHealth.backend.util.RejectUtils.*;
-import static net.mbmedia.mHealth.backend.util.ResponseHelper.simpleSuccesAnswer;
+import static net.mbmedia.mHealth.backend.util.ResponseHelper.simpleSuccessAnswer;
 import static net.mbmedia.mHealth.backend.util.ResponseHelper.successAnswerWithObject;
 
 @RestController
@@ -61,9 +61,10 @@ public class FragebogenController extends BaseController implements IFragebogenC
         Optional<Long> id = fragebogenService.addFragebogen(fragebogenEntity);
         rejectIfNotPresent(id);
 
-        return simpleSuccesAnswer();
+        return simpleSuccessAnswer();
     }
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @PostMapping("/updateFragebogen")
     @Override
     public String updateFragebogen(String token, Long id, String titel, String beschreibung, String json)
@@ -82,9 +83,10 @@ public class FragebogenController extends BaseController implements IFragebogenC
                 .build();
 
         fragebogenService.updateFragebogen(updated);
-        return simpleSuccesAnswer();
+        return simpleSuccessAnswer();
     }
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @PostMapping("/delFragebogen")
     @Override
     public String delFragebogen(String token, Long id)
@@ -97,7 +99,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
         rejectIfNot(byId.get().getAuthor().equals(userID.get()));
 
         fragebogenService.delFragebogen(id);
-        return simpleSuccesAnswer();
+        return simpleSuccessAnswer();
     }
 
     @GetMapping("/getOwn")
@@ -154,7 +156,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
         Optional<Long> zuweisungID = fragebogenService.addZuweisung(zuweisung);
 
         return zuweisungID.isPresent()
-                ? simpleSuccesAnswer()
+                ? simpleSuccessAnswer()
                 : failureAnswer(SOME);
     }
 
@@ -169,9 +171,10 @@ public class FragebogenController extends BaseController implements IFragebogenC
         rejectIf(!zuweisungById.isPresent() || !zuweisungById.get().getFragebogen().getAuthor().equals(userID.get()));
 
         fragebogenService.delZuweisung(id);
-        return simpleSuccesAnswer();
+        return simpleSuccessAnswer();
     }
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @PostMapping("/addAbgeschlossen")
     @Override
     public String addAbgeschlossen(String token, String ergebnis, Long id)
@@ -207,7 +210,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
         fragebogenService.delNonCronZuweisung(patient.get().getUuid(), id);
 
         return optionalId.isPresent()
-                ? simpleSuccesAnswer()
+                ? simpleSuccessAnswer()
                 : failureAnswer(SOME);
     }
 
@@ -231,10 +234,10 @@ public class FragebogenController extends BaseController implements IFragebogenC
      * Möglicher Input trotz mehrerer Abschnitte
      * {"freieTextNachricht":"asdfasdf","ratingNummeroUno":0,"frageInNeuemAbschnitt":"asdf","ratingInNeuemAbschnitt":1}
      **/
+    @SuppressWarnings("RegExpRedundantEscape")
     private int berechneWert(String ergebnis)
     {
         String ergebnisAngepasst = ergebnis.replace("}", ",");
-        //TODO: regex passt nicht
         Pattern pattern = Pattern.compile("\\:([0-9]*?)\\,");
         Matcher matcher = pattern.matcher(ergebnisAngepasst);
 

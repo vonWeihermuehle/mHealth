@@ -88,7 +88,7 @@ public class ValueProvider
 
     public static ValueProvider mitZufallswerten()
     {
-        return new ValueProvider("prefix", "suffix");
+        return new ValueProvider("prefix_", "_suffix");
     }
 
     private ValueProvider(String prefix, String suffix)
