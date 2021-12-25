@@ -4,27 +4,12 @@ WORKDIR="$(dirname "$(readlink -f "$0")")"
 TARGETDIR=$WORKDIR/target
 DOCKERDIR=$WORKDIR/../docker_files
 
-NOBUILD=0
-
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;36m'
 NC='\033[0m' # No Color
 
 cd $WORKDIR
-
-
-args=( )
-while (( $# )); do
-  case $1 in
-    --nobuild)  NOBUILD=1 ;;
-    --test) echo "test";;
-    -*)        printf 'Unknown option: %q\n\n' "$1" ;;
-    *)         args+=( "$1" ) ;;
-  esac
-  shift
-done
-
 
 
 
@@ -116,12 +101,9 @@ copy_builds_to_target(){
 
 check_dependencies
 
-if [ $NOBUILD = 1 ]; then
-    echo "NOBUILD Flag was set"
-else
-    build_backend
-    build_frontend
-fi
+build_backend
+build_frontend
+
 clean_target_dir
 copy_builds_to_target
 
