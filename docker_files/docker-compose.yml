@@ -37,12 +37,20 @@ services:
         image: nginx:alpine
         container_name: frontend
         ports: 
-        - 80:80
+            - 80:80
         depends_on:
-        - mHealth_backend
+            - mHealth_backend
         volumes:
-        - ${SRCROOT:-.}/nginx.conf:/etc/nginx/nginx.conf
-        - ${SRCROOT:-.}/frontend:/usr/share/nginx/html    
+            - ${SRCROOT:-.}/nginx.conf:/etc/nginx/nginx.conf
+            - ${SRCROOT:-.}/frontend:/usr/share/nginx/html    
+    
+    mailCatcher:
+        image: sj26/mailcatcher
+        container_name: mailcatcher
+        ports:
+            - 1025:1025
+            - 1080:1080
+
 
      
  
