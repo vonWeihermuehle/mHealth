@@ -13,10 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.SOME;
-import static net.mbmedia.mHealth.backend.util.FailureAnswer.failureAnswer;
 import static net.mbmedia.mHealth.backend.util.RejectUtils.rejectIf;
-import static net.mbmedia.mHealth.backend.util.ResponseHelper.simpleSuccessAnswer;
-import static net.mbmedia.mHealth.backend.util.ResponseHelper.successAnswerWithObject;
+import static net.mbmedia.mHealth.backend.util.ResponseHelper.*;
 
 @RestController
 @RequestMapping(path = "/api/orte")

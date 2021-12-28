@@ -15,13 +15,11 @@ import java.util.Optional;
 
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.*;
 import static net.mbmedia.mHealth.backend.util.RejectUtils.rejectIf;
-import static net.mbmedia.mHealth.backend.util.ResponseHelper.simpleSuccessAnswer;
-import static net.mbmedia.mHealth.backend.util.ResponseHelper.successAnswerWithObject;
+import static net.mbmedia.mHealth.backend.util.ResponseHelper.*;
 
 @RestController
 @RequestMapping(path = "/api/unterstuetzung")
-public class UnterstuetzungController extends BaseController implements IUnterstuetzungController
-{
+public class UnterstuetzungController extends BaseController implements IUnterstuetzungController {
 
     @Autowired
     private IUnterstuetzungService unterstuetzungService;
@@ -29,8 +27,7 @@ public class UnterstuetzungController extends BaseController implements IUnterst
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     @PostMapping("/addUebung")
     @Override
-    public String addUebung(String token, String titel, String text, String empfaenger)
-    {
+    public String addUebung(String token, String titel, String text, String empfaenger) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTherapeut(userID) || !isTokenValid(token));
 
@@ -43,8 +40,7 @@ public class UnterstuetzungController extends BaseController implements IUnterst
 
         Optional<Long> id = unterstuetzungService.add(entity);
 
-        if (id.isPresent())
-        {
+        if (id.isPresent()) {
             return simpleSuccessAnswer();
         }
 
@@ -53,14 +49,12 @@ public class UnterstuetzungController extends BaseController implements IUnterst
 
     @PostMapping("/updateUebung")
     @Override
-    public String updateUebung(String token, Long uebungID, String titel, String text)
-    {
+    public String updateUebung(String token, Long uebungID, String titel, String text) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isTherapeut(userID));
 
         Optional<UnterstuetzungEntity> uebung = unterstuetzungService.getByIDAndErstelltVon(uebungID, userID.get());
-        if (!uebung.isPresent() || !uebung.get().getAuthor().equals(userID.get()))
-        {
+        if (!uebung.isPresent() || !uebung.get().getAuthor().equals(userID.get())) {
             return failureAnswer(NO_PERMISSION);
         }
 
@@ -71,8 +65,7 @@ public class UnterstuetzungController extends BaseController implements IUnterst
 
     @GetMapping("/getUebungen")
     @Override
-    public String getUebungen(String token)
-    {
+    public String getUebungen(String token) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isPatient(userID));
 
@@ -82,14 +75,12 @@ public class UnterstuetzungController extends BaseController implements IUnterst
 
     @PostMapping("/getUebungenFuerPatient")
     @Override
-    public String getUebungenFuerPatient(String token, String uuid)
-    {
+    public String getUebungenFuerPatient(String token, String uuid) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isTherapeut(userID));
 
         Optional<UserEntity> patient = userService.getById(uuid);
-        if (!patient.isPresent())
-        {
+        if (!patient.isPresent()) {
             return failureAnswer(NO_USER_FOUND);
         }
 
@@ -100,14 +91,12 @@ public class UnterstuetzungController extends BaseController implements IUnterst
 
     @PostMapping("/delUebung")
     @Override
-    public String delUebung(String token, Long uebungID)
-    {
+    public String delUebung(String token, Long uebungID) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isTherapeut(userID));
 
         Optional<UnterstuetzungEntity> uebung = unterstuetzungService.getByIDAndErstelltVon(uebungID, userID.get());
-        if (!uebung.isPresent() || !uebung.get().getAuthor().equals(userID.get()))
-        {
+        if (!uebung.isPresent() || !uebung.get().getAuthor().equals(userID.get())) {
             return failureAnswer(NO_PERMISSION);
         }
 

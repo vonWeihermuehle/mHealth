@@ -18,7 +18,7 @@ import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.SOME;
-import static net.mbmedia.mHealth.backend.util.FailureAnswer.failureAnswer;
+import static net.mbmedia.mHealth.backend.util.ResponseHelper.failureAnswer;
 import static net.mbmedia.mHealth.backend.util.RejectUtils.rejectIf;
 import static net.mbmedia.mHealth.backend.util.ResponseHelper.*;
 

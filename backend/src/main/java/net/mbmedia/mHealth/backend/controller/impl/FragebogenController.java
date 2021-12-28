@@ -25,15 +25,12 @@ import java.util.stream.Collectors;
 
 import static java.time.LocalDate.now;
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.SOME;
-import static net.mbmedia.mHealth.backend.util.FailureAnswer.failureAnswer;
 import static net.mbmedia.mHealth.backend.util.RejectUtils.*;
-import static net.mbmedia.mHealth.backend.util.ResponseHelper.simpleSuccessAnswer;
-import static net.mbmedia.mHealth.backend.util.ResponseHelper.successAnswerWithObject;
+import static net.mbmedia.mHealth.backend.util.ResponseHelper.*;
 
 @RestController
 @RequestMapping(path = "/api/fragebogen")
-public class FragebogenController extends BaseController implements IFragebogenController
-{
+public class FragebogenController extends BaseController implements IFragebogenController {
 
     @Autowired
     private IFragebogenService fragebogenService;
@@ -46,8 +43,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
 
     @PostMapping("/addFragebogen")
     @Override
-    public String addFragebogen(String token, String titel, String beschreibung, String json)
-    {
+    public String addFragebogen(String token, String titel, String beschreibung, String json) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isTherapeut(userID));
 
@@ -67,8 +63,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     @PostMapping("/updateFragebogen")
     @Override
-    public String updateFragebogen(String token, Long id, String titel, String beschreibung, String json)
-    {
+    public String updateFragebogen(String token, Long id, String titel, String beschreibung, String json) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isTherapeut(userID));
 
@@ -89,8 +84,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     @PostMapping("/delFragebogen")
     @Override
-    public String delFragebogen(String token, Long id)
-    {
+    public String delFragebogen(String token, Long id) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isTherapeut(userID));
 
@@ -104,8 +98,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
 
     @GetMapping("/getOwn")
     @Override
-    public String getOwn(String token)
-    {
+    public String getOwn(String token) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent());
 
@@ -122,8 +115,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
 
     @PostMapping("/getZuweisungenFuerFragebogen")
     @Override
-    public String getZuweisungenFuerFragebogen(String token, Long id)
-    {
+    public String getZuweisungenFuerFragebogen(String token, Long id) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isTherapeut(userID));
 
@@ -138,8 +130,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
 
     @PostMapping("/addZuweisung")
     @Override
-    public String addZuweisung(String token, Long id, String empfaengerID, String cron)
-    {
+    public String addZuweisung(String token, Long id, String empfaengerID, String cron) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isTherapeut(userID));
 
@@ -162,8 +153,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
 
     @PostMapping("/delZuweisung")
     @Override
-    public String delZuweisung(String token, Long id)
-    {
+    public String delZuweisung(String token, Long id) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isTherapeut(userID));
 
@@ -177,8 +167,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     @PostMapping("/addAbgeschlossen")
     @Override
-    public String addAbgeschlossen(String token, String ergebnis, Long id)
-    {
+    public String addAbgeschlossen(String token, String ergebnis, Long id) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isPatient(userID));
 
@@ -190,8 +179,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
         int wert = berechneWert(ergebnis);
         boolean schwellwertUeberschritten = patient.get().getSchwellwert() < wert;
 
-        if (schwellwertUeberschritten)
-        {
+        if (schwellwertUeberschritten) {
             Optional<UserEntity> therapeutFor = therapeutPatientService.getTherapeutFor(userID.get());
             rejectIfNotPresent(therapeutFor);
             mailService.sendSchwellWertUeberschritten(patient.get(), therapeutFor.get(), wert);
@@ -216,8 +204,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
 
     @PostMapping("/getAbgeschlossenFuer")
     @Override
-    public String getAbgeschlossenFuer(String token, String uuid)
-    {
+    public String getAbgeschlossenFuer(String token, String uuid) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isTherapeut(userID));
         Optional<UserEntity> patient = userService.getById(uuid);
@@ -235,16 +222,14 @@ public class FragebogenController extends BaseController implements IFragebogenC
      * {"freieTextNachricht":"asdfasdf","ratingNummeroUno":0,"frageInNeuemAbschnitt":"asdf","ratingInNeuemAbschnitt":1}
      **/
     @SuppressWarnings("RegExpRedundantEscape")
-    private int berechneWert(String ergebnis)
-    {
+    private int berechneWert(String ergebnis) {
         String ergebnisAngepasst = ergebnis.replace("}", ",");
         Pattern pattern = Pattern.compile("\\:([0-9]*?)\\,");
         Matcher matcher = pattern.matcher(ergebnisAngepasst);
 
         List<String> matched = new ArrayList<>();
         int i = 0;
-        while (matcher.find())
-        {
+        while (matcher.find()) {
             matched.add(matcher.group(i));
             i++;
         }
@@ -259,8 +244,7 @@ public class FragebogenController extends BaseController implements IFragebogenC
 
     private int aggregiert = 0;
 
-    private void aggregiere(int number)
-    {
+    private void aggregiere(int number) {
         this.aggregiert += number;
     }
 

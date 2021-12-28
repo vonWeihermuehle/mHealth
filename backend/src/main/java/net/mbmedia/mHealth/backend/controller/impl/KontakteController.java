@@ -14,23 +14,19 @@ import java.util.List;
 import java.util.Optional;
 
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.NO_PERMISSION;
-import static net.mbmedia.mHealth.backend.util.FailureAnswer.failureAnswer;
 import static net.mbmedia.mHealth.backend.util.RejectUtils.rejectIf;
-import static net.mbmedia.mHealth.backend.util.ResponseHelper.simpleSuccessAnswer;
-import static net.mbmedia.mHealth.backend.util.ResponseHelper.successAnswerWithObject;
+import static net.mbmedia.mHealth.backend.util.ResponseHelper.*;
 
 @RestController
 @RequestMapping(path = "/api/kontakte")
-public class KontakteController extends BaseController implements IKontakteController
-{
+public class KontakteController extends BaseController implements IKontakteController {
     @Autowired
     private IKontakteService kontakteService;
 
 
     @PostMapping("/add")
     @Override
-    public String add(String token, String name, String art, String email, String phone, String patientID)
-    {
+    public String add(String token, String name, String art, String email, String phone, String patientID) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent());
 
@@ -44,25 +40,21 @@ public class KontakteController extends BaseController implements IKontakteContr
 
         Optional<Long> id = kontakteService.addKontakt(kontakt);
 
-        if (id.isPresent())
-        {
+        if (id.isPresent()) {
             return simpleSuccessAnswer();
-        } else
-        {
+        } else {
             return failureAnswer(FailureAnswer.SOME);
         }
     }
 
     @PostMapping("/remove")
     @Override
-    public String remove(String token, Long id)
-    {
+    public String remove(String token, Long id) {
 
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent());
         Optional<KontaktEntity> kontakt = kontakteService.getByID(id);
-        if (kontakt.isPresent())
-        {
+        if (kontakt.isPresent()) {
             kontakteService.delKontakt(id);
             return simpleSuccessAnswer();
         }
@@ -72,8 +64,7 @@ public class KontakteController extends BaseController implements IKontakteContr
 
     @PostMapping("/update")
     @Override
-    public String update(String token, Long id, String name, String art, String email, String phone)
-    {
+    public String update(String token, Long id, String name, String art, String email, String phone) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent());
 
@@ -86,8 +77,7 @@ public class KontakteController extends BaseController implements IKontakteContr
                 .build();
 
         Optional<KontaktEntity> oldKontakt = kontakteService.getByID(entity.getId());
-        if (oldKontakt.isPresent())
-        {
+        if (oldKontakt.isPresent()) {
             kontakteService.updateKontakt(entity);
             return simpleSuccessAnswer();
         }
@@ -96,8 +86,7 @@ public class KontakteController extends BaseController implements IKontakteContr
 
     @PostMapping("/getAllFuer")
     @Override
-    public String getAllFuer(String token, String patientUUID)
-    {
+    public String getAllFuer(String token, String patientUUID) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isTherapeut(userID));
 
@@ -107,8 +96,7 @@ public class KontakteController extends BaseController implements IKontakteContr
 
     @GetMapping("/getOwn")
     @Override
-    public String getOwn(String token)
-    {
+    public String getOwn(String token) {
         Optional<String> userID = getUserIDFromToken(token);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isPatient(userID));
 

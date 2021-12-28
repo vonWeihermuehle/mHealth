@@ -10,19 +10,12 @@ public enum FailureAnswer {
     ALREADY_USED("Already used");
 
     private final String message;
-    FailureAnswer(String message){
+
+    FailureAnswer(String message) {
         this.message = message;
     }
 
-    public String getMessage(){
+    public String getMessage() {
         return message;
-    }
-
-    public static String failureAnswer(FailureAnswer answer)
-    {
-        return new ResponseHelper.BUILDER()
-                .withSuccess(false)
-                .withMessage(answer)
-                .build();
     }
 }
