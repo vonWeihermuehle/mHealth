@@ -52,12 +52,12 @@ export class WarnComponent implements OnInit {
     this.user = Object.assign(new User(), user);
 
     if (this.user.isPatient()) {
-      this.orteService.getAllFuer(this.user.uuid);
+      this.orteService.getAllFuer(this.user.uuid, false);
     } else {
       if (this.lokalSpeichern.getAktuellenPatient() == null) {
         this.toasterService.toastWithDoneButton('Patient fehlt', 'Es muss ein Patient gewählt werden');
       } else {
-        this.orteService.getAllFuer(this.lokalSpeichern.getAktuellenPatient().uuid);
+        this.orteService.getAllFuer(this.lokalSpeichern.getAktuellenPatient().uuid, false);
       }
     }
     this.subscriptions.push(

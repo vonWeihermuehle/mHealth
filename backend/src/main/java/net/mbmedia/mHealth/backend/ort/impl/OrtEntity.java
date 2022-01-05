@@ -40,7 +40,7 @@ public class OrtEntity
         this.lng = lng;
     }
 
-    private OrtEntity()
+    public OrtEntity()
     {
     }
 
@@ -164,5 +164,13 @@ public class OrtEntity
     void setLng(String lng)
     {
         this.lng = lng;
+    }
+
+    public OrtEntity removeUnnecessaryData(){
+        this.id = null;
+        this.beschreibung = null;
+        this.patientUUID = null;
+        this.titel = null;
+        return this;
     }
 }

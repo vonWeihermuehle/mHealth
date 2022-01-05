@@ -20,9 +20,10 @@ export class OrteService {
     private urlService: UrlService) {
   }
 
-  getAllFuer(uuid: string): void {
+  getAllFuer(uuid: string, anonym: boolean): void {
     let body = new HttpParams();
     body = body.set('uuid', uuid);
+    body = body.set('anonym', anonym);
 
     this.httpClient.post<GeneralResponse<Ort[]>>(this.urlService.getUrl('api/orte/get'), body).subscribe(
       data => {
@@ -76,9 +77,9 @@ export class OrteService {
     const userModel = Object.assign(new User(), this.lokalSpeichern.getUserModel());
     //const userModel = this.lokalSpeichern.getUserModel();
     if (userModel.isPatient()) {
-      this.getAllFuer(userModel.uuid);
+      this.getAllFuer(userModel.uuid, false);
     } else {
-      this.getAllFuer(this.lokalSpeichern.getAktuellenPatient().uuid);
+      this.getAllFuer(this.lokalSpeichern.getAktuellenPatient().uuid, false);
     }
   }
 }

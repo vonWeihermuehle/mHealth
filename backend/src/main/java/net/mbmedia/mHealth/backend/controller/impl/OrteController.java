@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.SOME;
 import static net.mbmedia.mHealth.backend.util.RejectUtils.rejectIf;
 import static net.mbmedia.mHealth.backend.util.ResponseHelper.*;
@@ -70,13 +72,19 @@ public class OrteController extends BaseController implements IOrteController
 
     @PostMapping("/get")
     @Override
-    public String getOrteFuerPatient(String token, String uuid)
+    public String getOrteFuerPatient(String token, String uuid, Boolean anonym)
     {
         Optional<String> userID = getUserIDFromToken(token);
         Optional<UserEntity> patient = userService.getById(uuid);
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !patient.isPresent());
 
         List<OrtEntity> allFuer = orteService.getAllFuer(uuid);
+
+        if(anonym){
+            allFuer = allFuer.stream()
+                    .map(OrtEntity::removeUnnecessaryData)
+                    .collect(toList());
+        }
 
         return successAnswerWithObject(allFuer);
     }

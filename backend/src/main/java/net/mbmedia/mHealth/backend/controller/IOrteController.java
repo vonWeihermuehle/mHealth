@@ -24,7 +24,8 @@ public interface IOrteController
 
     String getOrteFuerPatient(
             @RequestHeader(name = "token") String token,
-            @RequestParam(name = "uuid") String uuid
+            @RequestParam(name = "uuid") String uuid,
+            @RequestParam(name = "anonym") Boolean anonym
     );
 
     String delOrt(

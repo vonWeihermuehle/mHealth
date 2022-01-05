@@ -35,7 +35,7 @@ export class WarnService {
   }
 
   warnIfTooNear(): void {
-    this.orteService.getAllFuer(this.lokalSpeichern.getUserModel().uuid);
+    this.orteService.getAllFuer(this.lokalSpeichern.getUserModel().uuid, true);
     if (this.subscriptions.length < 1) {
       this.subscriptions.push(
         this.orteService.orteList.subscribe(o => this.orteList = o)

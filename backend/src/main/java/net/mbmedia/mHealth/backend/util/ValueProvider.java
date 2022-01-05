@@ -97,6 +97,16 @@ public class ValueProvider
         this.suffix = suffix;
     }
 
+    public String getLatOrLng(){
+        int vorDemKomma = intNumber(0, 20);
+        int nachDemKomma = intNumber(0, Integer.MAX_VALUE);
+
+        String latOrLng = vorDemKomma + "." + nachDemKomma;
+        return latOrLng.length() > 20
+                ? latOrLng.substring(0, 20)
+                : latOrLng;
+    }
+
     public String familienname()
     {
         return familiennamen[intNumber(0, familiennamen.length)];
@@ -141,27 +151,6 @@ public class ValueProvider
     {
         return prefix + base + suffix;
     }
-
-    public String decoratedString(String base, int maxLength)
-    {
-        if (base.length() > maxLength)
-        {
-            return base.substring(0, maxLength);
-        }
-
-        if (decoratedString(base).length() < maxLength)
-        {
-            return decoratedString(base);
-        }
-
-        if ((prefix + base).length() >= maxLength)
-        {
-            return (prefix + base).substring((prefix + base).length() - maxLength);
-        }
-
-        return decoratedString(base).substring(0, maxLength);
-    }
-
 
     public String telefonnummer()
     {

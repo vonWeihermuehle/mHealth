@@ -79,11 +79,25 @@ public class OrteControllerTest
         OrtEntity ortIrrelevant = standartOrt();
         persistiere(ort, ortIrrelevant);
 
-        String response = orteController.getOrteFuerPatient(token, PATIENT.getUuid());
+        String response = orteController.getOrteFuerPatient(token, PATIENT.getUuid(), false);
         assert (response.contains(ort.getBeschreibung()));
         assert (!response.contains(ortIrrelevant.getBeschreibung()));
     }
 
+    @Test
+    public void getFuerAnonym(){
+        String token = generateAndAddTokenFuer(THERAPEUT);
+        OrtEntity ort = standardOrtBuilder().withPatient(PATIENT.getUuid()).build();
+        OrtEntity ortIrrelevant = standartOrt();
+        persistiere(ort, ortIrrelevant);
+
+        String response = orteController.getOrteFuerPatient(token, PATIENT.getUuid(), true);
+        assert(!response.contains(ort.getBeschreibung()));
+        assert (response.contains(ort.getLat()));
+        assert (!response.contains(ortIrrelevant.getLat()));
+    }
+
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Test
     public void update()
     {
