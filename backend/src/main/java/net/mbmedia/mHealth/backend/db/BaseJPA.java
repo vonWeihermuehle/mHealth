@@ -1,5 +1,6 @@
 package net.mbmedia.mHealth.backend.db;
 
+import net.mbmedia.mHealth.backend.BackendApplication;
 import net.mbmedia.mHealth.backend.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +60,7 @@ public class BaseJPA<T>
         //TODO: sql debug
         boolean show_sql = false;
 
-        if (System.getProperty("jdbc.url") != null)
+        if (System.getProperty(BackendApplication.JDBC_URL) != null)
         {
             show_sql = false;
             jdbc_url = System.getProperty("jdbc.url");

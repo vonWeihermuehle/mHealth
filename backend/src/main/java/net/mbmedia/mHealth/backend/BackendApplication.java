@@ -10,6 +10,8 @@ import java.util.Collections;
 @EnableScheduling
 public class BackendApplication {
 
+	public static final String JDBC_URL = "jdbc.url";
+
 	public static void main(String[] args){
 		SpringApplication app = new SpringApplication(BackendApplication.class);
 		//todo: auf welchem Port soll das Backend laufen
@@ -17,7 +19,7 @@ public class BackendApplication {
 
 		if(args.length > 0){
 			if(args[0].length() > 1){
-				System.setProperty("jdbc.url", args[0]);
+				System.setProperty(JDBC_URL, args[0]);
 			}
 		}
 

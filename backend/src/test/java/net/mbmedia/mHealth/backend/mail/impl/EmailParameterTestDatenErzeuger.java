@@ -1,5 +1,6 @@
 package net.mbmedia.mHealth.backend.mail.impl;
 
+import net.mbmedia.mHealth.backend.BackendApplication;
 import net.mbmedia.mHealth.backend.param.impl.ParameterEntity;
 
 import java.util.ArrayList;
@@ -7,12 +8,18 @@ import java.util.List;
 
 import static net.mbmedia.mHealth.backend.mail.MailParameter.*;
 
-public class EmailParameterTestDatenErzeuger
-{
-    public static List<ParameterEntity> generateMailParameter()
-    {
+
+public class EmailParameterTestDatenErzeuger {
+
+    private static final String MAIL_HOST = "MAIL_HOST";
+
+    public static List<ParameterEntity> generateMailParameter() {
+        String mailHost = (System.getenv(MAIL_HOST) == null || System.getenv(MAIL_HOST).length() < 1)
+                ? "localhost"
+                : System.getenv(MAIL_HOST);
+
         List<ParameterEntity> list = new ArrayList<>();
-        list.add(new ParameterEntity(HOST.getSchluessel(), "localhost"));
+        list.add(new ParameterEntity(HOST.getSchluessel(), mailHost));
         list.add(new ParameterEntity(Port.getSchluessel(), 1025));
         list.add(new ParameterEntity(AUTH.getSchluessel(), false));
         list.add(new ParameterEntity(StartTLS.getSchluessel(), false));
@@ -22,8 +29,7 @@ public class EmailParameterTestDatenErzeuger
         return list;
     }
 
-    private static String getSchwellwertUeberschritten()
-    {
+    private static String getSchwellwertUeberschritten() {
         return getHeader() +
                 "<body class=\"\">\n" +
                 "    <span class=\"preheader\">This is preheader text. Some clients will show this text as a preview.</span>\n" +
@@ -64,8 +70,7 @@ public class EmailParameterTestDatenErzeuger
     }
 
 
-    private static String getPasswortResetTemplate()
-    {
+    private static String getPasswortResetTemplate() {
         return getHeader() +
                 "<body class=\"\">\n" +
                 "    <span class=\"preheader\">This is preheader text. Some clients will show this text as a preview.</span>\n" +
@@ -126,8 +131,7 @@ public class EmailParameterTestDatenErzeuger
                 "</html>";
     }
 
-    public static String getEmailRegistrationTemplate()
-    {
+    public static String getEmailRegistrationTemplate() {
         return getHeader() +
                 "  <body class=\"\">\n" +
                 "    <span class=\"preheader\">This is preheader text. Some clients will show this text as a preview.</span>\n" +
@@ -189,8 +193,7 @@ public class EmailParameterTestDatenErzeuger
                 "</html>";
     }
 
-    private static String getHeader()
-    {
+    private static String getHeader() {
         return "<!doctype html>\n" +
                 "<html>\n" +
                 "  <head>\n" +
