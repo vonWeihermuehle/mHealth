@@ -14,7 +14,8 @@ export class AuthInterceptor implements HttpInterceptor {
     if (this.userService.isLoggedIn()) {
       request = request.clone({
         setHeaders: {
-          token: this.userService.getApiToken()
+          token: this.userService.getApiToken(),
+          host: window.location.hostname
         }
       });
     }

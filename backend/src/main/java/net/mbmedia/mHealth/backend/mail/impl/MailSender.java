@@ -51,10 +51,11 @@ public class MailSender implements IMailService
     @Override
     public void sendNewPasswort(String host, UserEntity to, String passwort)
     {
+        String link = "http://" + host + "/login";
         String message = new MailTextMapper()
                 .withTemplate(parameterService.getStringParam(RESET_PASSWORT.getSchluessel()).get())
                 .withPasswort(passwort)
-                .withLink("http://" + host + "/login")
+                .withLink(link)
                 .withName(to.getFullName())
                 .build();
         sendSimpleMail(NO_REPLAY_MAIL, to.getEmail(), message, "Passwort bei mHealth");

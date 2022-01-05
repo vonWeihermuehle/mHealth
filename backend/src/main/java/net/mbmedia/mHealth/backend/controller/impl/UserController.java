@@ -11,6 +11,7 @@ import net.mbmedia.mHealth.backend.user.ITherapeutPatientService;
 import net.mbmedia.mHealth.backend.user.impl.TherapeutPatientEntity;
 import net.mbmedia.mHealth.backend.user.impl.UserEntity;
 import net.mbmedia.mHealth.backend.util.FailureAnswer;
+import net.mbmedia.mHealth.backend.util.HostHelper;
 import net.mbmedia.mHealth.backend.util.StandortHelper;
 import net.mbmedia.mHealth.backend.util.UUIDHelper;
 import org.eclipse.sisu.Nullable;
@@ -28,6 +29,7 @@ import static net.mbmedia.mHealth.backend.token.TokenGenerator.generateToken;
 import static net.mbmedia.mHealth.backend.util.CryptoHelper.generateInitialPassword;
 import static net.mbmedia.mHealth.backend.util.CryptoHelper.hash;
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.*;
+import static net.mbmedia.mHealth.backend.util.HostHelper.getHostFromString;
 import static net.mbmedia.mHealth.backend.util.RejectUtils.rejectIf;
 import static net.mbmedia.mHealth.backend.util.RejectUtils.rejectIfNot;
 import static net.mbmedia.mHealth.backend.util.ResponseHelper.*;
@@ -73,7 +75,7 @@ public class UserController extends BaseController implements IUserController
     @Override
     public String resetPassword(String host, String email)
     {
-        Optional<UserEntity> byEmail = userService.getByEmail(email);
+        Optional<UserEntity> byEmail = userService.getByEmail(email.trim());
         rejectIfNot(byEmail.isPresent());
 
         String newPasswort = generateInitialPassword(10);
@@ -81,7 +83,7 @@ public class UserController extends BaseController implements IUserController
         boolean erfolg = userService.updatePassword(byEmail.get().getUuid(), hash(newPasswort));
         if (erfolg)
         {
-            mailService.sendNewPasswort(host, byEmail.get(), newPasswort);
+            mailService.sendNewPasswort(getHostFromString(host), byEmail.get(), newPasswort);
             return simpleSuccessAnswer();
         }
         return failureAnswer(SOME);
@@ -120,7 +122,7 @@ public class UserController extends BaseController implements IUserController
                 .withUUID(UUIDHelper.generateUUID())
                 .withVorname(vorname)
                 .withNachname(nachname)
-                .withEmail(email)
+                .withEmail(email.trim())
                 .withTherapeut(false)
                 .withPasswort(hash(initialPassword))
                 .withUsername(username)
@@ -140,7 +142,7 @@ public class UserController extends BaseController implements IUserController
         List<String> list = patientenFuer.stream().map(UserEntity::getUsername).collect(toList());
         if (list.contains(username))
         {
-            mailService.sendRegisterConfirmation(host, patient, initialPassword);
+            mailService.sendRegisterConfirmation(getHostFromString(host), patient, initialPassword);
             return simpleSuccessAnswer();
         }
         return failureAnswer(FailureAnswer.REGISTER_FAILED);
@@ -163,7 +165,7 @@ public class UserController extends BaseController implements IUserController
                 .withUUID(UUIDHelper.generateUUID())
                 .withVorname(vorname)
                 .withNachname(nachname)
-                .withEmail(email)
+                .withEmail(email.trim())
                 .withTherapeut(true)
                 .withPasswort(hash(initialPassword))
                 .withUsername(username)
@@ -173,7 +175,7 @@ public class UserController extends BaseController implements IUserController
 
         if (register.isPresent())
         {
-            mailService.sendRegisterConfirmation(host, therapeut, initialPassword);
+            mailService.sendRegisterConfirmation(getHostFromString(host), therapeut, initialPassword);
             return simpleSuccessAnswer();
         }
 
