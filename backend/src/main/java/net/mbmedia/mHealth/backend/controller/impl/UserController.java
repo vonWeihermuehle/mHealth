@@ -69,6 +69,7 @@ public class UserController extends BaseController implements IUserController
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
+    @PostMapping("/reset")
     @Override
     public String resetPassword(String host, String email)
     {

@@ -210,6 +210,22 @@ export class UserService {
     );
   }
 
+  resetPassword(email: string): void {
+    let body = new HttpParams();
+    body = body.set('email', email);
+    this.httpClient.post<GeneralResponse<any>>(this.urlService.getUrl('api/user/reset'), body).subscribe(
+      data => {
+        if(data.success)
+        {
+          this.toaster.toast('Passwort wurde erfolgreich zurückgesetzt und Ihnen per Mail zugesandt');
+          this.logout();
+        }else{
+          this.toaster.toast('Passwort konnte nicht zurückgesetzt werden');
+        }
+      }
+    );
+  }
+
 }
 
 export interface LoginResponseData {

@@ -1,8 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {UserService} from 'src/app/services/user.service';
 import {Router} from '@angular/router';
-import {PatientenService} from '../../services/patienten.service';
-import { Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +19,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private patientenService: PatientenService,
     private renderer: Renderer2) {
   }
 
@@ -35,7 +32,7 @@ export class LoginComponent implements OnInit {
     });
 
     this.globalListenFunc = this.renderer.listen('document', 'keypress', e => {
-      if(e.keyCode === 13){
+      if (e.keyCode === 13) {
         this.login();
       }
     });
@@ -46,8 +43,12 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.username, this.passwort);
   }
 
+  resetPassword(){
+    this.router.navigateByUrl('reset');
+  }
+
   // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.globalListenFunc();
   }
 

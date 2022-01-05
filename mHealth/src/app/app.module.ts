@@ -19,6 +19,7 @@ import {SurveyCreatorComponent} from './components/survey-creator/survey-creator
 import {SurveyComponent} from './components/survey/survey.component';
 import {AngularEditorModule} from '@kolkov/angular-editor';
 import {LoginComponent} from './components/login/login.component';
+import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
 import {HomeComponent} from './home/home.component';
 import {AuthInterceptor} from './auth.interceptor';
 import {AgmCoreModule} from '@agm/core';
@@ -56,7 +57,8 @@ import {DownloadComponent} from './components/download/download.component';
     SurveyDoComponent,
     SurveyOldComponent,
     ZuweisenComponent,
-    DownloadComponent
+    DownloadComponent,
+    ResetPasswordComponent
   ],
   entryComponents: [],
   imports: [
