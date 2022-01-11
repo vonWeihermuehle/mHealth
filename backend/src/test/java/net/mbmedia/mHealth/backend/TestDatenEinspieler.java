@@ -127,8 +127,8 @@ public class TestDatenEinspieler {
 
         UserEntity admin = getStandardUserEntityBuilder()
                 .withTechUser(true)
-                .withUsername("A")
-                .withPasswort(hash(STANDARD_PASSWORT))
+                .withUsername("admin")
+                .withPasswort(hash("admin"))
                 .build();
 
         persistiere(Therapeut, Patient, Patient2, admin);
