@@ -85,6 +85,10 @@ export class SonstigesComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  isTherapeutanlegen(): boolean {
+    return this.art === 'Therapeut';
+  }
+
   // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
