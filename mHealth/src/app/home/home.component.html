@@ -53,7 +53,7 @@
       </ion-label>
     </ion-item>
 
-    <ion-item detail="true" (click)="openItemIfAktuellerPatientgesetzt('/kontakt')">
+    <ion-item *ngIf="!user?.isTechUser()" detail="true" (click)="openItemIfAktuellerPatientgesetzt('/kontakt')">
       <ion-icon slot="start" name="contract-outline"></ion-icon>
       <ion-label class="ion-text-wrap">
         <h2>Kontakt aufbauen</h2>
@@ -61,7 +61,7 @@
       </ion-label>
     </ion-item>
 
-    <ion-item detail="true" (click)="openItemIfAktuellerPatientgesetzt('/warn')">
+    <ion-item *ngIf="!user?.isTechUser()" detail="true" (click)="openItemIfAktuellerPatientgesetzt('/warn')">
       <ion-icon slot="start" name="warning-outline"></ion-icon>
       <ion-label class="ion-text-wrap">
         <h2>Warnfunktion</h2>
@@ -69,7 +69,7 @@
       </ion-label>
     </ion-item>
 
-    <ion-item detail="true" (click)="openItemIfAktuellerPatientgesetzt('/unterstuetzung')">
+    <ion-item *ngIf="!user?.isTechUser()" detail="true" (click)="openItemIfAktuellerPatientgesetzt('/unterstuetzung')">
       <ion-icon slot="start" name="book-outline"></ion-icon>
       <ion-label class="ion-text-wrap">
         <h2>Patientenunterstützung</h2>
@@ -77,7 +77,7 @@
       </ion-label>
     </ion-item>
 
-    <ion-item detail="true" (click)="openItem('/daten')">
+    <ion-item *ngIf="!user?.isTechUser()" detail="true" (click)="openItem('/daten')">
       <ion-icon slot="start" name="document-text-outline"></ion-icon>
       <ion-label class="ion-text-wrap">
         <h2>Datenerhebung</h2>
@@ -85,7 +85,7 @@
       </ion-label>
     </ion-item>
 
-    <ion-item detail="true" (click)="openItem('/chat/show/chats')">
+    <ion-item *ngIf="!user?.isTechUser()" detail="true" (click)="openItem('/chat/show/chats')">
       <ion-icon slot="start" name="chatbubbles-outline"></ion-icon>
       <ion-label class="ion-text-wrap">
         <h2>Chat</h2>
