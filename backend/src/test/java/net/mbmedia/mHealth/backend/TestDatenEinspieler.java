@@ -48,6 +48,7 @@ import static net.mbmedia.mHealth.backend.util.ValueProvider.mitZufallswerten;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestDatenEinspieler {
+    public static final double STANDARD_LAT_LNG = 10.0;
     private static final String THERAPEUT_UUID = UUIDHelper.generateUUID();
     private static final String Patient_UUID = UUIDHelper.generateUUID();
     private static final String THERAPEUT_USERNAME = "T";
@@ -113,6 +114,8 @@ public class TestDatenEinspieler {
                 .withPasswort(hash(STANDARD_PASSWORT))
                 .withUUID(Patient_UUID)
                 .withUsername(PATIENT_USERNAME)
+                .withLat(STANDARD_LAT_LNG)
+                .withLng(STANDARD_LAT_LNG)
                 .build();
 
         UserEntity Patient2 = getStandardUserEntityBuilder()
@@ -123,6 +126,8 @@ public class TestDatenEinspieler {
                 .withPasswort(hash(STANDARD_PASSWORT))
                 .withUUID(UUIDHelper.generateUUID())
                 .withUsername("P2")
+                .withLat(STANDARD_LAT_LNG)
+                .withLng(STANDARD_LAT_LNG)
                 .build();
 
         UserEntity admin = getStandardUserEntityBuilder()
