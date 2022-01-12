@@ -91,7 +91,7 @@ Ansonsten kann der Ort über das Mülltonen Symbol am Ende der Zeile entfernt we
 ![Ort](manualScreenshots/orteZeile.png)
 
 
-#### Patientenunterstützung
+<h5 id="patientenunterstuetzung">Patientenunterstützung</h5>
 
 Analog zu den Funktionen [Kontakt aufbauen](#kontakt-aufbauen) und der [Warnfunktion](#warn-add-ort) ist auch der Punkt *Patientunterstützung* aufgebaut.
 
@@ -172,5 +172,51 @@ Diese Aktion ist unwiderruflich
 
 #### Kontakt Suche
 
+Über *Suche Kontakt* ist es möglich die Funktion ansich zu aktiviern und deaktivieren.
+
+Ist die Funktion aktiv wird regelmäßig der eigene Standort an den Server übermittelt.
+Dadurch kann man andere Patienten im Umkreis von 30km anzeigen lassen. Man selbst wird bei anderen Patienten angezeigt.
+
+Nach einem Klick auf einen Patienten im Umkreis, öffnet sich der [Chat](#chat) und man kann sofort eine Konversation beginnen.
+
+![Kontakt Suche](manualScreenshots/kontaktSuche.png)  
+
+#### Kontakt aufbauen (Patient)
+
+Siehe [Kontakt aufbauen](#kontakt-aufbauen)
+
+#### Warnfunktion (Patient)
+
+Siehe [Warnfunktion](#warn-add-ort)
+
+Da hier wieder die Ortung verwendet wird, kann der Patient die Funktion aktivieren und deaktivieren
+
+![Warnfunktion Patient](manualScreenshots/warnfunktionPatient.png)  
+
+
+#### Patientunterstützung
+
+In der Patientenansicht der Patientunterstützung können die vom Therapeuten erstellten Übungen und Maßnahmen, siehe [Patientenunterstützung](#patientenunterstuetzung), angezeigt werden.
+
+> Der Patient hat keine Möglichkeit eigene zu erstellen oder zu verwalten.
+
+Mit einem Klick auf eine angezeigte Übung wird diese formatiert angezeigt.
+
+![Übung](manualScreenshots/uebung.png)  
+
+
+#### Datenerhebung
+
+Siehe auch [Datenerhebung](#datenerhebung)
+
+Hier wird dem Patienten die zugewiesenen Fragebögen zur Beantwortung angeboten.
+Nach einem Klick auf einen Fragebogen wird die Bearbeitung direkt geöffnet.
+
+![Datenerhebung Patient](manualScreenshots/datenerhebungPatient.png)  
+
+
+#### Chat
+
+siehe [Chat](#chat)
 
 
