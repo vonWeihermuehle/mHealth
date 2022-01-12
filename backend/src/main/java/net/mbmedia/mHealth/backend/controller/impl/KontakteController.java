@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static net.mbmedia.mHealth.backend.util.FailureAnswer.NO_PERMISSION;
 import static net.mbmedia.mHealth.backend.util.RejectUtils.rejectIf;
@@ -91,7 +92,12 @@ public class KontakteController extends BaseController implements IKontakteContr
         rejectIf(!isTokenValid(token) || !userID.isPresent() || !isTherapeut(userID));
 
         List<KontaktEntity> allFuer = kontakteService.getAllFuer(patientUUID);
-        return successAnswerWithObject(allFuer);
+
+        List<KontaktEntity> allFuerOhneTherapeut = allFuer.stream()
+                .filter(k -> !k.getUserID().equals(userID.get()))
+                .collect(Collectors.toList());
+
+        return successAnswerWithObject(allFuerOhneTherapeut);
     }
 
     @GetMapping("/getOwn")
