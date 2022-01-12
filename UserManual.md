@@ -125,4 +125,52 @@ Dabei stehen 3 verschiedene Fragetypen zur Auswahl:
 - Rating
 - Multiple Choice
 
+Bei Freitext Fragen wird zum beantworten ein Textfeld angeboten, bei einem Rating kann zwischen den Werten 0 bis 4 ausgewählt werden, bei Multiple Choice müssen zusätzlich Antwort Möglichkeiten vorgegeben werden, zwischen denen dann gewählt werden kann.
+
+> Nur die "Rating"-Fragen können für den Schwellwert und die automatische Auswertung verwendet werden.
+> 
+> Andere Frage-Typen werden, für die Schwellwert Berechnung ignoriert
+
+
+<h5 id="datenerhebung">Datenerhebung: Fragebogen verwalten</h5>
+
+Die erstellten Fragebögen können über *Datenerhebung -> Zu den Fragebögen* eingesehen und verwaltet werden.
+
+Als erstes bekommt man eine Liste der einzelnen Fragebögen. Mit einem Klick öffnet sich ein Kontext Menü über das verschiedene Aktion gestartet werden können:
+- Fragebogen als Vorlage nutzen
+  - Dabei wird man zur Funktion [Fragebogen erstellen](#datenerhebung) weitergeleitet, wobei die Fragen schon vorausgewählt sind.
+- Vorschau
+  - es kann der ausgewählte Fragebogen in einer kleinen Vorschau geöffnet werden um sich einen Überblick zu verschaffen
+- Zuweisen
+  - Hier kann ein Fragebogen einem Patienten zugewiesen werden. Zusätzlich kann ein Wochenturnus angegeben werden um einen Fragebogen regelmäßig abfragen zu können.
+- Löschen
+  - ein Fragebogen kann hier auch gelöscht werden
+
+
+#### Chat
+
+Über den Menüpunkt *Chat* gelangt man in eine Übersicht seiner offenen Konversationen.
+
+![Chat](manualScreenshots/chat.png)
+
+Nach einem Klick auf einen bestimmten Chat kann man Nachrichten lesen bzw. versenden.
+
+![Chat](manualScreenshots/chatOffen.png)  
+
+
+### UserRolle: Patient
+
+#### Passwort ändern
+
+siehe [Passwort ändern](#admin-change-password)
+
+#### Konto löschen
+
+Ein Patient kann über *Sonstiges -> Konto löschen* sein Benutzerkonto mit allen dazugehörigen Daten löschen.
+
+Diese Aktion ist unwiderruflich
+
+#### Kontakt Suche
+
+
 
