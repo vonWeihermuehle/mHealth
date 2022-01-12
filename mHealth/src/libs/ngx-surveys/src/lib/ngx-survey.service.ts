@@ -283,6 +283,7 @@ export class NgxSurveyService {
         _.each(_.filter(form, (section)=>this.isSectionVisible(form, section)), (section)=>{
             _.each(_.filter(section.items, (item)=>this.isItemVisible(form, section, item)), (item)=>{
                 //value[item.name] = _.isArray(item.value) ? JSON.stringify(item.value) : item.value;
+                value[item.name] = item.value;
               //item.name to item.label umbenannt, damit die Auswertung korrekt dargestellt wird
                 value[item.label] = item.value;
                 if (validateAll){
