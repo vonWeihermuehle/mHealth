@@ -26,7 +26,7 @@ Um das System vollständig testen zu können wird ein Mail Server benötigt. Die
 ## Kurzanleitung
 
 Eine Anleitung einzelner UseCases findet man unter:
-[Kurzanleitung](UserManual.md)
+[Kurzanleitung](UserManual.adoc)
 
 ## Kernfunktionen
 Es gibt 2 Benutzergruppen, die die Anwendung verwalten bzw. nutzen:
