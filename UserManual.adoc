@@ -35,6 +35,7 @@ Das eigene Passwort kann über *Sonstiges -> Passwort ändern* angepasst werden.
 
 Dabei werden das Neue und Alte Passwort benötigt.
 
+<<<
 === UserRolle: Therapeut
 
 ==== neuen Patient aufnehmen
@@ -94,6 +95,7 @@ Ansonsten kann der Ort über das Mülltonen Symbol am Ende der Zeile entfernt we
 
 image::manualScreenshots/orteZeile.png[]
 
+<<<
 [#patientenunterstuetzung]
 ==== Patientenunterstützung
 
@@ -116,11 +118,11 @@ Nachdem eingeben des Titels und einer Beschreibung kann ein Fragebogen im Tab "E
 
 Im ersten Schritt muss ein neuer Abschnitt über den "Add"-Button hinzugefügt werden.
 
-image::manualScreenshots/fragebogenAbschnitt.png[]
+image::manualScreenshots/fragebogenAbschnitt.png[Fragebogen Abschnitt, 200]
 
 Einem Abschnitt kann ein Titel hinzugefügt werden oder es kann ein kompletter Abschnitt auch wieder entfernt werden.
 
-image::manualScreenshots/fragebogenAbschnittBearbeiten.png[]
+image::manualScreenshots/fragebogenAbschnittBearbeiten.png[Fragebogen Abschnitt bearbeiten, 200]
 
 Sobald ein Abschnitt vorhanden ist, kann über den Button "Neue Frage" eine neue Frage hinzugefügt werden.
 
@@ -150,18 +152,20 @@ Als erstes bekommt man eine Liste der einzelnen Fragebögen. Mit einem Klick öf
 - Löschen
 - ein Fragebogen kann hier auch gelöscht werden
 
+
+<<<
 [#chat]
 ==== Chat
 
 Über den Menüpunkt *Chat* gelangt man in eine Übersicht seiner offenen Konversationen.
 
-image::manualScreenshots/chat.png[]
+image::manualScreenshots/chat.png[Chat, 200]
 
 Nach einem Klick auf einen bestimmten Chat kann man Nachrichten lesen bzw. versenden.
 
-image::manualScreenshots/chatOffen.png[]
+image::manualScreenshots/chatOffen.png[Chat geöffnet, 200]
 
-
+<<<
 === UserRolle: Patient
 
 ==== Passwort ändern
@@ -183,21 +187,22 @@ Dadurch kann man andere Patienten im Umkreis von 30km anzeigen lassen. Man selbs
 
 Nach einem Klick auf einen Patienten im Umkreis, öffnet sich der <<chat>> und man kann sofort eine Konversation beginnen.
 
-image::manualScreenshots/kontaktSuche.png[]
+image::manualScreenshots/kontaktSuche.png[Kontakt Suche, 200]
 
 ==== Kontakt aufbauen (Patient)
 
 Siehe <<kontakt-aufbauen>>
 
+<<<
 ==== Warnfunktion (Patient)
 
 Siehe <<warn-add-ort>>
 
 Da hier wieder die Ortung verwendet wird, kann der Patient die Funktion aktivieren und deaktivieren
 
-image::manualScreenshots/warnfunktionPatient.png[]
+image::manualScreenshots/warnfunktionPatient.png[Warnfunktion, 200]
 
-
+<<<
 ==== Patientunterstützung
 
 In der Patientenansicht der Patientunterstützung können die vom Therapeuten erstellten Übungen und Maßnahmen, siehe <<patientenunterstuetzung>>, angezeigt werden.
@@ -206,7 +211,7 @@ In der Patientenansicht der Patientunterstützung können die vom Therapeuten er
 
 Mit einem Klick auf eine angezeigte Übung wird diese formatiert angezeigt.
 
-image::manualScreenshots/uebung.png[]
+image::manualScreenshots/uebung.png[Uebung, 200]
 
 
 ==== Datenerhebung
@@ -216,7 +221,7 @@ Siehe auch <<datenerhebung>>
 Hier wird dem Patienten die zugewiesenen Fragebögen zur Beantwortung angeboten.
 Nach einem Klick auf einen Fragebogen wird die Bearbeitung direkt geöffnet.
 
-image::manualScreenshots/datenerhebungPatient.png[]
+image::manualScreenshots/datenerhebungPatient.png[Datenerhebung, 200]
 
 
 ==== Chat
