@@ -38,6 +38,7 @@ Dabei werden das Neue und Alte Passwort benötigt.
 <<<
 === UserRolle: Therapeut
 
+[#neuen-patient-aufnehmen]
 ==== neuen Patient aufnehmen
 
 Wurde ein neuer Therapeut angelegt, ist diesem kein Patient zugewiesen.
@@ -54,13 +55,13 @@ Da ein Therapeut mehrere Patienten haben kann, muss vor den meisten Aktionen ein
 
 Dies geschieht über den Button *Patient wählen* im oberen Menüband.
 
-Ist ein Patient gewählt erscheint im Menüband auch der Name des gewählten Patienten
+Ist ein Patient gewählt, erscheint im Menüband auch der Name des gewählten Patienten
 
 image::manualScreenshots/menuband.png[]
 
 ==== Schwellwerte für Patienten setzen
 
-Die eingegebenen Schwellwerte für die Fragebögen, die über die Funktion [neuen Patient aufnehmen](#neuen-patient-aufnehmen) gesetzt werden können hier für jeden einzelnen Patienten neu gesetzt werden.
+Die eingegebenen Schwellwerte für die Fragebögen, die über die Funktion <<neuen-patient-aufnehmen>> gesetzt werden, können hier für jeden einzelnen Patienten neu gesetzt werden.
 
 ==== Passwort ändern
 
@@ -76,6 +77,7 @@ Zu beachten ist, dass nur bei syntaktisch richtigen Telefonnummern bzw. Email Ad
 Die bereits hinterlegten Kontakte finden sich in der Liste unter dem Menüband.
 Je Kontakt und je hinterlegter Daten gibt es die Möglichkeit direkt einen Anruf zu starten, eine Mail zu versenden, den Kontakt zu bearbeiten oder diesen zu entfernen.
 
+<<<
 [#warn-add-ort]
 ==== Warnfunktion Ort hinzufügen
 
